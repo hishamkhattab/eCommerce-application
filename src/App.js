@@ -6,7 +6,7 @@ import { Homepage, Registerpage } from "./pages";
 
 
 //components
-import { Header } from "./components";
+import { Header,Footer } from "./components";
 
 // style
 import "./index.scss";
@@ -20,6 +20,7 @@ const App = () => {
         <Route path="/" element={<Homepage/>}/>
         <Route path="/register" element={<Registerpage/>}/>
       </Routes>
+      <Footer/>
     </div>
   );
 }
