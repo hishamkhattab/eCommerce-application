@@ -1,0 +1,22 @@
+.btn {
+  padding: 0.5em 1em;
+  border-radius: 0.5em;
+  margin: 0 auto;
+  font-size: 1em;
+  text-transform: uppercase;
+  outline: none;
+  border-width: 1.5px;
+  border-color: crimson;
+  letter-spacing: 1.5px;
+  line-height: 1;
+  background-color: crimson;
+  color: white;
+  cursor: pointer;
+}
+
+.btn:hover {
+  outline: none;
+  border-color: crimson;
+  background-color: white;
+  color: crimson;
+}

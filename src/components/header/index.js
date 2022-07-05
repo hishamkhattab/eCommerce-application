@@ -12,9 +12,14 @@ const Header = () => {
         </Link>
       </div>
 
-      <div className="header-links">
-        <Link to="/register">Register</Link>
-      </div>
+      <ul className="header-links">
+        <li>
+          <Link to="/register">register</Link>
+        </li>
+        <li>
+          <Link to="/login">login</Link>
+        </li>
+      </ul>
     </div>
   );
 }

@@ -11,4 +11,15 @@
   a {
     color: white;
   }
+
+  .header-links {
+    display: inline-flex;
+    gap: 1rem;
+
+    a {
+      font-size: 0.7em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+  }
 }
