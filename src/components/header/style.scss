@@ -4,10 +4,11 @@
   color: white;
   background-color: #333;
   align-items: center;
-
+  justify-content: space-between;
   box-shadow: 0px 0px 2px 0px #fff inset;
+  padding: 0 2.5rem;
 
-  .header-wrapper {
-    padding: 1rem;
+  a {
+    color: white;
   }
 }
