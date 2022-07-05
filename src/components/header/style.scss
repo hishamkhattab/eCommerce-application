@@ -1,0 +1,13 @@
+.header {
+  height: 6.5rem;
+  display: flex;
+  color: white;
+  background-color: #333;
+  align-items: center;
+
+  box-shadow: 0px 0px 2px 0px #fff inset;
+
+  .header-wrapper {
+    padding: 1rem;
+  }
+}
