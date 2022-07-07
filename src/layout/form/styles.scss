@@ -22,7 +22,24 @@
   }
 
   .btn-container {
+    padding: 1rem;
     margin: 0.7em auto;
     text-align: center;
+  }
+
+  .links-container {
+    margin-left: 3rem;
+
+    a {
+      display: block;
+      color: crimson;
+      font-size: 0.7em;
+      padding: 0.5em 0;
+    }
+
+    a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
   }
 }
