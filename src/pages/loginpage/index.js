@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, {useState,useEffect} from 'react'
+import { useNavigate,Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 //component
@@ -9,33 +9,65 @@ import { Signin } from '../../components';
 import { FormLayout, Button} from "./../../layout";
 
 //reducer
-import { signinWithGoogle} from "./../../store/userSlice";
+import { signinWithGoogle, signinUser} from "./../../store/userSlice";
 
 //styles
 import "./style.scss";
 
 const Loginpage = () => {
-    const { currentUser, error } = useSelector(state => state.users);
+    const { currentUser, error,username } = useSelector(state => state.users);
     const dispatch = useDispatch();
-    const handleClick = () => {
+
+    //state
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+
+    //route
+    const navigate = useNavigate();
+
+    const handleGoogleSignin = () => {
         dispatch(signinWithGoogle());
     };
 
-    console.log("CurrentUser: ",currentUser);
-    console.log("Error: ",error);
+    const clearForm = () => {
+        setEmail("");
+        setPassword("");
+    }
+
+    const handleSignin = () => {
+        console.log(email,password);
+        if (email.length > 0 && password.length > 0) {
+            dispatch(signinUser({ email, password }));
+            clearForm();
+        }
+    };
+
+    useEffect(() => {
+        if (username) {
+            navigate("/", { replace: true });
+        }
+    }, [navigate, username]);
+
     return (
         <div>
             <FormLayout title="Login">
-                <Signin />
+                <Signin
+                    error={error}
+                    email={email}
+                    password={password}
+                    setEmail={setEmail}
+                    setPassword={setPassword}
+                />
                 <div className="links-container">
                     <Link to="/reset">Forget Password ?</Link>
                     <Link to="/register">Don't have account</Link>
                 </div>
                 <div className="btn-container">
-                    <Button>sign in</Button>
+                    <Button handleClick={handleSignin}>sign in</Button>
                 </div>
                 <div className="btn-container">
-                    <Button handleClick={handleClick}>sign in with google</Button>
+                    <Button handleClick={handleGoogleSignin}>sign in with google</Button>
                 </div>
             </FormLayout>
         </div>

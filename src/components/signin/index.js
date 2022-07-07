@@ -1,25 +1,26 @@
 import React from 'react'
 
 import "./style.scss";
-const Signin = () => {
+const Signin = ({email,password,setEmail,setPassword,error}) => {
   return (
     <div>
     <form onSubmit={(e) => e.preventDefault()} className="signup-form">
-        {/* {!isPassowrdMatch && <p className='error-message'>*Password and confirm password does not match</p>} */}
-        {/* {error && <p className='error-message'>{error}</p>} */}
+        {error && <p className='error-message'>{error}</p>}
         <input
+          required
             type="email"
             name="email"
-            // value={email}
+            value={email}
             placeholder="Email"
-            // onChange={({target}) => handleForm(target)}
+            onChange={({target}) => setEmail(target.value)}
         />
         <input
+          required
             type="password"
             name="password"
-            // value={password}
+            value={password}
             placeholder="Password"
-            // onChange={({target}) => handleForm(target)}
+            onChange={({target}) => setPassword(target.value)}
         />
     </form>
 </div>
