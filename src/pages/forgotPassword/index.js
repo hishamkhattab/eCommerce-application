@@ -1,5 +1,6 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 //component
 import { ResetPassword } from '../../components';
 
@@ -7,17 +8,38 @@ import { ResetPassword } from '../../components';
 import { FormLayout, Button} from "./../../layout";
 
 //reducer
-import { signinWithGoogle} from "./../../store/userSlice";
+import { resetPassword} from "./../../store/userSlice";
 
 //styles
 import "./style.scss";
 const ForgotPassword = () => {
+  const { error, isReset } = useSelector(state => state.users);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  
+  const handleReset = () => {
+    if (email) {
+      dispatch(resetPassword(email))
+    }
+  };
+
+  useEffect(() => {
+    if (isReset) {
+      navigate("/login");
+    }
+  }, [dispatch, isReset, navigate]);
+  
   return (
     <div>
       <FormLayout title="Reset Password">
-        <ResetPassword />
+        <ResetPassword 
+          email={email}
+          setEmail={setEmail}
+          error={error}
+        />
         <div className="btn-container">
-          <Button>Reset Password</Button>
+          <Button handleClick={handleReset}>Reset Password</Button>
         </div>
       </FormLayout>
     </div>

@@ -2,18 +2,17 @@ import React from 'react'
 
 import "./style.scss";
 
-const ResetPassword = () => {
+const ResetPassword = ({email, setEmail, error}) => {
     return (
         <div>
             <form onSubmit={(e) => e.preventDefault()} className="reset-form">
-                {/* {!isPassowrdMatch && <p className='error-message'>*Password and confirm password does not match</p>} */}
-                {/* {error && <p className='error-message'>{error}</p>} */}
+                {error && <p className='error-message'>{error}</p>}
                 <input
                     type="email"
                     name="email"
-                    // value={email}
+                    value={email}
                     placeholder="Email"
-                // onChange={({target}) => handleForm(target)}
+                    onChange={({ target }) => setEmail(target.value)}
                 />
             </form>
         </div>
