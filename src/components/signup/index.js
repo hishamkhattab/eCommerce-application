@@ -8,7 +8,7 @@ const Signup = ({handleForm,signupData,isPassowrdMatch,error}) => {
 
     return (
         <div>
-            <form onSubmit={(e) => e.preventDefault()} className="signup-form">
+            <form onSubmit={(e) => e.preventDefault()} className="form-layout">
                 {!isPassowrdMatch && <p className='error-message'>*Password and confirm password does not match</p>}
                 {error && <p className='error-message'>{error}</p>}
                 <input

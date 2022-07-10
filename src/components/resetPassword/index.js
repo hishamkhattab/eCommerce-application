@@ -5,7 +5,7 @@ import "./style.scss";
 const ResetPassword = ({email, setEmail, error}) => {
     return (
         <div>
-            <form onSubmit={(e) => e.preventDefault()} className="reset-form">
+            <form onSubmit={(e) => e.preventDefault()} className="form-layout">
                 {error && <p className='error-message'>{error}</p>}
                 <input
                     type="email"

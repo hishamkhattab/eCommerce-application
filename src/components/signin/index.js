@@ -4,7 +4,7 @@ import "./style.scss";
 const Signin = ({email,password,setEmail,setPassword,error}) => {
   return (
     <div>
-    <form onSubmit={(e) => e.preventDefault()} className="signup-form">
+    <form onSubmit={(e) => e.preventDefault()} className="form-layout">
         {error && <p className='error-message'>{error}</p>}
         <input
           required
