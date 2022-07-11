@@ -1,3 +1,4 @@
+import { async } from "@firebase/util";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
     signInWithPopup,
@@ -32,13 +33,14 @@ export const signinWithGoogle = createAsyncThunk("user/signinWithGoogle", async 
     try {
         const { user } = await signInWithPopup(auth, provider);
         dispatch(addUserToDataBase({ userAuth: user, additionalData: {} }));
+        dispatch(getSnapshotFromDB(user));
         const { uid, email, displayName, photoURL} = user;
         const userInfo = {
             uid,
             email,
             photoURL
         }
-        return { displayName, userInfo };
+        // return { displayName, userInfo };
     } catch (error) {
         return rejectWithValue(error.message);
     }
@@ -65,7 +67,7 @@ export const signupUser = createAsyncThunk("user/signupUser", async (userData, A
             photoURL: "https://wellbeingchirony.com/wp-content/uploads/2021/03/Deafult-Profile-Pitcher.png",
         });
         const userInfo = {
-            username: user.displayName,
+            displayName: user.displayName,
             uid: user.uid,
             email: user.email,
             photoURL: user.photoURL,
@@ -144,6 +146,18 @@ export const resetPassword = createAsyncThunk("user/resetPassword", async (email
             url: "http://localhost:3000/login"
         });
 
+    } catch (error) {
+        return rejectWithValue(error.message);
+    }
+});
+
+export const getSnapshotFromDB = createAsyncThunk("user/getSnapshot", async (user, APIThunk) => {
+    const { rejectWithValue } = APIThunk;
+    const { uid } = user;
+    const userRef = doc(db, "users", uid)
+    try {
+        const snapshot = await getDoc(userRef);
+        return snapshot.data();
     } catch (error) {
         return rejectWithValue(error.message);
     }
@@ -257,7 +271,7 @@ export const userSlice = createSlice({
             state.error = action.payload;
         });
 
-        
+
         builder.addCase(resetPassword.pending, state => {
             state.isLoading = true;
         });
@@ -269,6 +283,20 @@ export const userSlice = createSlice({
         builder.addCase(resetPassword.rejected, (state, action) => {
             state.isLoading = false;
             state.isReset = false;
+            state.error = action.payload;
+        });
+
+        builder.addCase(getSnapshotFromDB.pending, state => {
+            state.isLoading = true;
+        });
+        builder.addCase(getSnapshotFromDB.fulfilled, (state,action) => {
+            state.isLoading = false;
+            state.currentUser = action.payload;
+            state.error = [];
+        });
+        builder.addCase(getSnapshotFromDB.rejected, (state, action) => {
+            state.isLoading = false;
+            state.currentUser = {};
             state.error = action.payload;
         });
     }
