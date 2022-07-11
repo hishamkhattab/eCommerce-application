@@ -14,6 +14,7 @@ import { resetPassword} from "./../../store/userSlice";
 import "./style.scss";
 const ForgotPassword = () => {
   const { error, isReset } = useSelector(state => state.users);
+  
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");

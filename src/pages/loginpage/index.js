@@ -15,7 +15,7 @@ import { signinWithGoogle, signinUser} from "./../../store/userSlice";
 import "./style.scss";
 
 const Loginpage = () => {
-    const { currentUser, error,username } = useSelector(state => state.users);
+    const { currentUser, error} = useSelector(state => state.users);
     const dispatch = useDispatch();
 
     //state
@@ -44,10 +44,10 @@ const Loginpage = () => {
     };
 
     useEffect(() => {
-        if (username) {
+        if (Object.keys(currentUser).length > 0) {
             navigate("/", { replace: true });
         }
-    }, [navigate, username]);
+    }, [navigate, currentUser]);
 
     return (
         <div>

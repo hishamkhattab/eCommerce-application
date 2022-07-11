@@ -3,10 +3,9 @@
   margin: 4em auto;
   width: 100%;
   max-width: 40rem;
-  background-color: #333;
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
   color: #fff;
   border-radius: 0.5em;
-  border: 0.2em solid #333;
 
   .form-wrapper {
     padding: 0.5em;
@@ -32,7 +31,7 @@
 
     a {
       display: block;
-      color: crimson;
+      color: #2193b0;
       font-size: 0.7em;
       padding: 0.5em 0;
     }

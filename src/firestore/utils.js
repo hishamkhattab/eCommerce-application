@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
-import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
-import { getAuth, GoogleAuthProvider, onAuthStateChanged} from "firebase/auth";
+import { getFirestore } from "firebase/firestore";
+import { getAuth, GoogleAuthProvider} from "firebase/auth";
 
 import firebaseConfig from "./config";
 

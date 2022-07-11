@@ -6,10 +6,11 @@ import { checkCurrentUserIsAdmin} from "./../../utils";
 import "./style.scss";
 
 const Header = () => {
-  const { username, currentUser } = useSelector(state => state.users);
+  const { currentUser } = useSelector(state => state.users);
   const dispatch = useDispatch();
 
-  const isAdmin = checkCurrentUserIsAdmin(currentUser);
+  let isAdmin = checkCurrentUserIsAdmin(currentUser);
+
   return (
     <div className='header'>
       {isAdmin &&
@@ -23,17 +24,21 @@ const Header = () => {
           </Link>
         </div>
         <ul className="header-links">
-          {username &&
+          {currentUser?.displayName &&
           <li>
-            <Link to="/">{username}</Link>
+              <Link to="/">
+                <div className="profile-img-container">
+                  <img src={currentUser.photoURL ? currentUser.photoURL : "./assets/user.png"} alt="profile" />
+                </div>
+            </Link>
           </li>
           }
           <li>
-          {username === "" && <Link to="/register">register</Link>}
+          {Object.keys(currentUser).length === 0 && <Link to="/register">register</Link>}
           </li>
           <li>
-            {username === "" && <Link to="/login">login</Link>}
-            {username && <Link to="" onClick={() => dispatch(signoutUser())}>logout</Link>}
+            {Object.keys(currentUser).length === 0 && <Link to="/login">login</Link>}
+            {currentUser?.displayName && <Link to="" onClick={() => dispatch(signoutUser())}>logout</Link>}
           </li>
         </ul>
       </div>

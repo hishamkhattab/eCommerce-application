@@ -31,7 +31,19 @@
 
     .header-links {
       display: inline-flex;
+      align-items: center;
       gap: 1rem;
+
+      .profile-img-container {
+        width: 3rem;
+        height: 3rem;
+
+        img {
+          height: 100%;
+          width: 100%;
+          border-radius: 50%;
+        }
+      }
 
       a {
         font-size: 0.7em;

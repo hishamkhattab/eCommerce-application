@@ -1,4 +1,3 @@
-import { async } from "@firebase/util";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
     signInWithPopup,
@@ -32,15 +31,9 @@ export const signinWithGoogle = createAsyncThunk("user/signinWithGoogle", async 
 
     try {
         const { user } = await signInWithPopup(auth, provider);
+
         dispatch(addUserToDataBase({ userAuth: user, additionalData: {} }));
-        dispatch(getSnapshotFromDB(user));
-        const { uid, email, displayName, photoURL} = user;
-        const userInfo = {
-            uid,
-            email,
-            photoURL
-        }
-        // return { displayName, userInfo };
+
     } catch (error) {
         return rejectWithValue(error.message);
     }
@@ -66,39 +59,28 @@ export const signupUser = createAsyncThunk("user/signupUser", async (userData, A
             displayName,
             photoURL: "https://wellbeingchirony.com/wp-content/uploads/2021/03/Deafult-Profile-Pitcher.png",
         });
-        const userInfo = {
-            displayName: user.displayName,
-            uid: user.uid,
-            email: user.email,
-            photoURL: user.photoURL,
-        };
-        // const additionalData = { displayName };
-        dispatch(addUserToDataBase({ userAuth: user}));
 
-        return { userInfo };
+        dispatch(addUserToDataBase({ userAuth: user }));
+
     } catch (error) {
         return rejectWithValue(error.message);
     }
 });
 
 export const signinUser = createAsyncThunk("user/signinUser", async ({email, password}, APIThunk) => {
-    const { rejectWithValue } = APIThunk;
+    const { rejectWithValue,dispatch } = APIThunk;
 
     try {
         const { user } = await signInWithEmailAndPassword(auth,email,password);
-        const userInfo = {
-            username: user.displayName,
-            uid: user.uid,
-            email: user.email
-        };
-        return userInfo;
+        dispatch(getSnapshotFromDB(user));
+
     } catch (error) {
         return rejectWithValue(error.message);
     }
 });
 
 export const addUserToDataBase = createAsyncThunk("user/addUserToDataBase", async ({userAuth,additionalData}, APIThunk) => {
-    const { rejectWithValue } = APIThunk;
+    const { rejectWithValue,dispatch } = APIThunk;
 
     /**
      * basiclly this method is to check if there is a user sign-in or not 
@@ -113,7 +95,7 @@ export const addUserToDataBase = createAsyncThunk("user/addUserToDataBase", asyn
      */
 
     // if (!userAuth) return;
-    const { uid, displayName, email } = userAuth;
+    const { uid, displayName, email,photoURL } = userAuth;
     const userDoc = doc(db, "users", uid)
     const timestamp = new Date();
     const userRoles = ["user"];
@@ -127,9 +109,12 @@ export const addUserToDataBase = createAsyncThunk("user/addUserToDataBase", asyn
                 email,
                 createdDate: timestamp,
                 userRoles,
+                photoURL,
                 ...additionalData
             });
         };
+
+        dispatch(getSnapshotFromDB(userAuth));
 
     } catch (error) {
         return rejectWithValue(error.message);
@@ -157,16 +142,16 @@ export const getSnapshotFromDB = createAsyncThunk("user/getSnapshot", async (use
     const userRef = doc(db, "users", uid)
     try {
         const snapshot = await getDoc(userRef);
-        return snapshot.data();
+        return {...snapshot.data(), createdDate: snapshot.data().createdDate.toDate().toDateString()};
     } catch (error) {
         return rejectWithValue(error.message);
     }
-})
+});
+
 const initialState = {
     isLoading: false,
-    currentUser: {},
     error: [],
-    username: "",
+    currentUser: {},
     isReset: false
 }
 
@@ -195,10 +180,8 @@ export const userSlice = createSlice({
         builder.addCase(signinWithGoogle.pending, state => {
             state.isLoading = true;
         });
-        builder.addCase(signinWithGoogle.fulfilled, (state, action) => {
+        builder.addCase(signinWithGoogle.fulfilled, (state) => {
             state.isLoading = false;
-            state.username = action.payload.displayName;
-            state.currentUser = action.payload.userInfo;
             state.error = [];
         });
         builder.addCase(signinWithGoogle.rejected, (state, action) => {
@@ -215,12 +198,10 @@ export const userSlice = createSlice({
         builder.addCase(signoutUser.fulfilled, (state) => {
             state.isLoading = false;
             state.currentUser = {};
-            state.username = "";
         });
         builder.addCase(signoutUser.rejected, (state, action) => {
             state.isLoading = false;
             state.currentUser = {};
-            state.username = "";
             state.error = action.payload;
         });
 
@@ -241,11 +222,8 @@ export const userSlice = createSlice({
         builder.addCase(signupUser.pending, state => {
             state.isLoading = true;
         });
-        builder.addCase(signupUser.fulfilled, (state, action) => {
-            const { userInfo } = action.payload;
+        builder.addCase(signupUser.fulfilled, (state) => {
             state.isLoading = false;
-            state.username = userInfo.username;
-            state.currentUser = userInfo;
             state.error = [];
         });
         builder.addCase(signupUser.rejected, (state, action) => {
@@ -258,10 +236,8 @@ export const userSlice = createSlice({
         builder.addCase(signinUser.pending, state => {
             state.isLoading = true;
         });
-        builder.addCase(signinUser.fulfilled, (state, action) => {
+        builder.addCase(signinUser.fulfilled, (state) => {
             state.isLoading = false;
-            state.username = action.payload.username;
-            state.currentUser = action.payload;
             state.error = [];
         });
         builder.addCase(signinUser.rejected, (state, action) => {
@@ -289,9 +265,9 @@ export const userSlice = createSlice({
         builder.addCase(getSnapshotFromDB.pending, state => {
             state.isLoading = true;
         });
-        builder.addCase(getSnapshotFromDB.fulfilled, (state,action) => {
+        builder.addCase(getSnapshotFromDB.fulfilled, (state, action) => {
             state.isLoading = false;
-            state.currentUser = action.payload;
+            state.currentUser = {...action.payload, createdDate: new Date(action.payload.createdDate)};
             state.error = [];
         });
         builder.addCase(getSnapshotFromDB.rejected, (state, action) => {

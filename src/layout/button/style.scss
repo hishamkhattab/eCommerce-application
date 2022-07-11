@@ -7,20 +7,29 @@
   text-transform: uppercase;
   outline: none;
   border-width: 1.5px;
-  border-color: crimson;
+  border-color: #2193b0;
   letter-spacing: 1.5px;
   line-height: 1;
-  background-color: crimson;
+  background: linear-gradient(
+    to right,
+    #2193b0,
+    #6dd5ed
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   color: white;
   cursor: pointer;
-  transition: background-color 0.2s ease-in-out;
+  transition: background 0.2s ease-in-out;
   transition: transform 0.3s;
 }
 
 .btn:hover {
   outline: none;
-  border-color: crimson;
-  background-color: white;
-  color: crimson;
+  border-color: #2193b0;
+  // background-color: white;
+  color: #6dd5ed;
+  background: linear-gradient(
+    to right,
+    #ffefba,
+    #ffffff
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   transform: scale(1.05);
 }
