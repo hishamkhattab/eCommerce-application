@@ -5,6 +5,8 @@ import Footer from "./footer";
 import Signup from "./signup";
 import Signin from "./signin";
 import ResetPassword from "./resetPassword";
+import VerticalNav from "./verticalNav";
+import ProductCard from "./productCard";
 
 export {
     Header,
@@ -14,5 +16,7 @@ export {
     Footer,
     Signup,
     Signin,
-    ResetPassword
+    ResetPassword,
+    VerticalNav,
+    ProductCard
 };

@@ -1,11 +1,13 @@
 import React from 'react'
+import { VerticalNav, ProductCard } from '../../components';
 
 import "./style.scss";
 
 const Adminpage = () => {
   return (
-    <div>
-      <h1>Admin page</h1>
+    <div className='admin-page'>
+      {/* <VerticalNav /> */}
+      <ProductCard/>
     </div>
   )
 }

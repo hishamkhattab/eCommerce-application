@@ -36,9 +36,9 @@ const App = () => {
         <Route path="/reset" element={<ForgotPassword />} />
         <Route path="/admin"
           element={
-            <WithAdminAuth>
+            // <WithAdminAuth>
               <Adminpage />
-            </WithAdminAuth>
+            /* </WithAdminAuth> */
           } />
       </Routes>
       <Footer />
