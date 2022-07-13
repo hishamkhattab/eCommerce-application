@@ -1,29 +1,25 @@
-import React, {useState} from 'react'
-import {AiOutlineShoppingCart } from "react-icons/ai";
+import React, { useState } from "react";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 
 import "./style.scss";
 
-const ProductCard = () => {
-
+function ProductCard() {
   const [isInCart, setIsInCart] = useState(false);
 
   const handleIsInCart = () => {
-    setIsInCart(prev => !prev);
-  }
+    setIsInCart((prev) => !prev);
+  };
   return (
-    <div className='card-container'>
+    <div className="card-container">
       <div className="card-price">
-        <span className='price'>$2000</span>
+        <span className="price">$2000</span>
       </div>
       <div className="card-image">
         <img src="./assets/product-1.jpg" alt="product-iamge" />
       </div>
       <div className="card-controls">
-        <span className={isInCart ? "cart active" : 'cart'}>
-          <AiOutlineShoppingCart
-            className='card-icon'
-            onClick={handleIsInCart}
-          />
+        <span className={isInCart ? "cart active" : "cart"}>
+          <AiOutlineShoppingCart className="card-icon" onClick={handleIsInCart} />
         </span>
       </div>
       <div className="card-info">
@@ -32,16 +28,18 @@ const ProductCard = () => {
       </div>
 
       <div className="card-category">
-        <span>men's wear</span>
+        <span>mens wear</span>
         <span>watch</span>
         <span>watch</span>
       </div>
 
       <div className="card-btn">
-        <button>Details</button>
+        <button onClick={console.log("a")} type="button">
+          Details
+        </button>
       </div>
     </div>
-  )
+  );
 }
 
 export default ProductCard;

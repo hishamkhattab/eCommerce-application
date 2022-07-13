@@ -1,30 +1,31 @@
-import React from 'react'
+import React from "react";
 
 import "./style.scss";
-const Signin = ({email,password,setEmail,setPassword,error}) => {
+
+function Signin({ email, password, setEmail, setPassword, error }) {
   return (
     <div>
-    <form onSubmit={(e) => e.preventDefault()} className="form-layout">
-        {error && <p className='error-message'>{error}</p>}
+      <form onSubmit={(e) => e.preventDefault()} className="form-layout">
+        {error && <p className="error-message">{error}</p>}
         <input
           required
-            type="email"
-            name="email"
-            value={email}
-            placeholder="Email"
-            onChange={({target}) => setEmail(target.value)}
+          type="email"
+          name="email"
+          value={email}
+          placeholder="Email"
+          onChange={({ target }) => setEmail(target.value)}
         />
         <input
           required
-            type="password"
-            name="password"
-            value={password}
-            placeholder="Password"
-            onChange={({target}) => setPassword(target.value)}
+          type="password"
+          name="password"
+          value={password}
+          placeholder="Password"
+          onChange={({ target }) => setPassword(target.value)}
         />
-    </form>
-</div>
-  )
+      </form>
+    </div>
+  );
 }
 
-export default Signin
+export default Signin;

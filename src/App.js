@@ -1,25 +1,23 @@
 import React, { useEffect } from "react";
-import { Routes, Route} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
-//pages
-import { Homepage, Registerpage,Loginpage,ForgotPassword, Adminpage } from "./pages";
+// pages
+import { Homepage, Registerpage, Loginpage, ForgotPassword, Adminpage } from "./pages";
 
+// components
+import { Header, Footer } from "./components";
 
-//components
-import { Header,Footer } from "./components";
+// reducer
+import { checkIfUserSignin } from "./store/userSlice";
 
-//reducer
-import {checkIfUserSignin} from "./store/userSlice";
-
-//high-order-component
+// high-order-component
 import { WithAdminAuth } from "./HOC";
-
 
 // style
 import "./index.scss";
 
-const App = () => {
+function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,12 +32,14 @@ const App = () => {
         <Route path="/register" element={<Registerpage />} />
         <Route path="/login" element={<Loginpage />} />
         <Route path="/reset" element={<ForgotPassword />} />
-        <Route path="/admin"
+        <Route
+          path="/admin"
           element={
             // <WithAdminAuth>
-              <Adminpage />
+            <Adminpage />
             /* </WithAdminAuth> */
-          } />
+          }
+        />
       </Routes>
       <Footer />
     </div>

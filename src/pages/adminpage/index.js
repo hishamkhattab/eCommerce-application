@@ -1,16 +1,15 @@
-import React from 'react'
-import { VerticalNav, ProductCard } from '../../components';
+import React from "react";
+import { VerticalNav, ProductCard } from "../../components";
 
 import "./style.scss";
 
-const Adminpage = () => {
-
+function Adminpage() {
   return (
-    <div className='admin-page'>
+    <div className="admin-page">
       {/* <VerticalNav /> */}
-      <ProductCard/>
+      <ProductCard />
     </div>
-  )
+  );
 }
 
-export default Adminpage
+export default Adminpage;

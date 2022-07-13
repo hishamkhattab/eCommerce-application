@@ -1,27 +1,28 @@
-import React, { useEffect, useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-//component
-import { ResetPassword } from '../../components';
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+// component
+import { ResetPassword } from "../../components";
 
-//layout
-import { FormLayout, Button} from "./../../layout";
+// layout
+import { FormLayout, Button } from "../../layout";
 
-//reducer
-import { resetPassword} from "./../../store/userSlice";
+// reducer
+import { resetPassword } from "../../store/userSlice";
 
-//styles
+// styles
 import "./style.scss";
-const ForgotPassword = () => {
-  const { error, isReset } = useSelector(state => state.users);
-  
+
+function ForgotPassword() {
+  const { error, isReset } = useSelector((state) => state.users);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
-  
+
   const handleReset = () => {
     if (email) {
-      dispatch(resetPassword(email))
+      dispatch(resetPassword(email));
     }
   };
 
@@ -30,15 +31,11 @@ const ForgotPassword = () => {
       navigate("/login");
     }
   }, [dispatch, isReset, navigate]);
-  
+
   return (
     <div>
       <FormLayout title="Reset Password">
-        <ResetPassword 
-          email={email}
-          setEmail={setEmail}
-          error={error}
-        />
+        <ResetPassword email={email} setEmail={setEmail} error={error} />
         <div className="btn-container">
           <Button handleClick={handleReset}>Reset Password</Button>
         </div>
@@ -47,4 +44,4 @@ const ForgotPassword = () => {
   );
 }
 
-export default ForgotPassword
+export default ForgotPassword;

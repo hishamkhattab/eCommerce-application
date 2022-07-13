@@ -9,14 +9,14 @@ import VerticalNav from "./verticalNav";
 import ProductCard from "./productCard";
 
 export {
-    Header,
-    HomeDirectory,
-    Carousel,
-    CarouselItem,
-    Footer,
-    Signup,
-    Signin,
-    ResetPassword,
-    VerticalNav,
-    ProductCard
+  Header,
+  HomeDirectory,
+  Carousel,
+  CarouselItem,
+  Footer,
+  Signup,
+  Signin,
+  ResetPassword,
+  VerticalNav,
+  ProductCard,
 };
