@@ -11,8 +11,9 @@ function Header() {
 
   const isAdmin = checkCurrentUserIsAdmin(currentUser);
 
+  const headerStyle = { height: isAdmin ? "8.5rem" : "6.5rem" };
   return (
-    <div className="header">
+    <div className="header" style={headerStyle}>
       {isAdmin && (
         <div className="admin-wrapper">
           <Link to="/admin">Admin</Link>
