@@ -4,6 +4,7 @@ import { VerticalNav, ProductCard } from '../../components';
 import "./style.scss";
 
 const Adminpage = () => {
+
   return (
     <div className='admin-page'>
       {/* <VerticalNav /> */}
