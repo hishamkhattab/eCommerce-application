@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import "./style.scss";
 
-function VerticalNav() {
+function VerticalNav({ handleOpen }) {
   const { currentUser } = useSelector((state) => state.users);
 
   return (
@@ -20,7 +20,7 @@ function VerticalNav() {
         </p>
       </div>
       <div className="control">
-        <button>add product</button>
+        <button onClick={handleOpen}>add product</button>
       </div>
       <div className="users-list">
         <p className="user-title">Users:</p>

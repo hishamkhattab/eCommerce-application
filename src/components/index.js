@@ -7,6 +7,7 @@ import Signin from "./signin";
 import ResetPassword from "./resetPassword";
 import VerticalNav from "./verticalNav";
 import ProductCard from "./productCard";
+import Modal from "./modal";
 
 export {
   Header,
@@ -19,4 +20,5 @@ export {
   ResetPassword,
   VerticalNav,
   ProductCard,
+  Modal,
 };

@@ -19,13 +19,11 @@ function Productpage() {
     starArray.push(<IoMdStar key={i} />);
   }
 
-  console.log(stock);
-
   return (
     <div className="product-page">
       <div className="image-container">
         <div className="img">
-          <img src="https://cdn.pixabay.com/photo/2012/12/24/08/38/copper-72062_960_720.jpg" alt="product" />
+          <img src={thumb} alt="product" />
         </div>
       </div>
       <div className="product-details">

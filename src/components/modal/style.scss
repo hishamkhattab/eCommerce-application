@@ -1,0 +1,53 @@
+.modal-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($color: #000000, $alpha: 0.7);
+  display: grid;
+  place-items: center;
+
+  .modal-wrapper {
+    background-color: transparent;
+    min-width: 300px;
+    width: 40%;
+    padding: 1rem;
+    border-radius: 5px;
+    position: relative;
+
+    .modal-close-btn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: translate(-50%, 50%);
+
+      .icon {
+        cursor: pointer;
+        font-size: 20px;
+        color: #fff;
+      }
+    }
+
+    & .form {
+      margin: 0 auto;
+
+      & input::placeholder {
+        text-transform: capitalize;
+      }
+      & input {
+        width: 100%;
+        margin: 0.5rem 0;
+        padding: 0.5rem 2rem;
+        font-size: 0.7em;
+        outline: none;
+        border-color: transparent;
+        border-radius: 0.5em;
+      }
+
+      .model-desc {
+        color: #333;
+      }
+    }
+  }
+}
