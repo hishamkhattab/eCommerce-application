@@ -1,18 +1,20 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { IoMdArrowDropup, IoMdArrowDropdown, IoMdStar } from "react-icons/io";
 import { data } from "../../data";
 import "./style.scss";
 
 function Productpage() {
+  const { products } = useSelector((state) => state.products);
   const { productId } = useParams();
-  const { title, price, stock, thumb, category, completeDescription, rate, review, createdDate } = data.products.find(
-    (el) => el.id === productId
+  const { title, price, stock, thumb, productCategory, description, rate, review, createdDate } = products.find(
+    (el) => el.documentID === productId
   );
 
   const [qty, setQty] = useState(0);
 
-  const starArray = new Array(parseInt(rate));
+  const starArray = new Array(parseInt(5));
 
   // eslint-disable-next-line no-plusplus
   for (let i = 0; i < parseInt(rate); i++) {
@@ -33,9 +35,11 @@ function Productpage() {
         </div>
         <h3 className="product-title">{title}</h3>
         <p className="product-price">${price}</p>
-        <p className="product-description">{completeDescription}</p>
+        <p className="product-description">{description}</p>
         <div className="product-category">
-          <span>{category}</span>
+          {productCategory.map((el, idx) => (
+            <span key={idx}>{el}</span>
+          ))}
         </div>
         <div className="product-rate">
           {starArray.map((el) => el)}

@@ -15,7 +15,7 @@ function Adminpage() {
   const [stock, setStock] = useState(0);
   const [thumbnail, setThumbnail] = useState("");
   const [image, setImage] = useState("");
-  const [category, setCategory] = useState("");
+  const [productCategory, setproductCategory] = useState("");
   const [shortDesc, setShortDesc] = useState("");
   const [productDesc, setProductDesc] = useState("");
 
@@ -25,7 +25,7 @@ function Adminpage() {
     setStock(0);
     setThumbnail("");
     setImage("");
-    setCategory("");
+    setproductCategory("");
     setShortDesc("");
     setProductDesc("");
   };
@@ -37,7 +37,7 @@ function Adminpage() {
       stock,
       thumbnail,
       image,
-      category: category.split(","),
+      productCategory: productCategory.split(","),
       shortDesc,
       productDesc,
     });
@@ -73,8 +73,8 @@ function Adminpage() {
             <input
               type="text"
               placeholder="category add (,) after each category"
-              value={category}
-              onChange={({ target }) => setCategory(target.value)}
+              value={productCategory}
+              onChange={({ target }) => setproductCategory(target.value)}
             />
             <input
               type="text"

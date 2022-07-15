@@ -6,35 +6,44 @@
     margin-top: 10rem;
   }
 
-  .homepage-main-section h2 {
-    text-align: center;
-    margin-bottom: 10rem;
-    font-size: 3.5rem;
-    text-transform: uppercase;
-    font-weight: normal;
-    position: relative;
-  }
+  .homepage-main-section {
+    h2 {
+      text-align: center;
+      margin-bottom: 10rem;
+      font-size: 3.5rem;
+      text-transform: uppercase;
+      font-weight: normal;
+      position: relative;
 
-  .homepage-main-section h2:before {
-    content: "";
-    position: absolute;
-    width: 20%;
-    height: 0.1rem;
-    background-color: #333;
-    bottom: -1.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-  .homepage-main-section h2:after {
-    content: "";
-    position: absolute;
-    width: 1rem;
-    height: 1rem;
-    background-color: white;
-    border-radius: 50%;
-    border: 1px solid #333;
-    bottom: -1.5rem;
-    left: 50%;
-    transform: translate(-50%, 0.5rem);
+      &:before {
+        content: '';
+        position: absolute;
+        width: 20%;
+        height: 0.1rem;
+        background-color: #333;
+        bottom: -1.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        width: 1rem;
+        height: 1rem;
+        background-color: white;
+        border-radius: 50%;
+        border: 1px solid #333;
+        bottom: -1.5rem;
+        left: 50%;
+        transform: translate(-50%, 0.5rem);
+      }
+    }
+
+    .product-section {
+      display: flex;
+      align-items: center;
+      column-gap: 1em;
+    }
   }
 }

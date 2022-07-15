@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AiOutlineShoppingCart } from "react-icons/ai";
+import { AiOutlineShoppingCart, AiOutlineArrowRight } from "react-icons/ai";
 import { Link } from "react-router-dom";
 
 import "./style.scss";
@@ -11,9 +11,35 @@ function ProductCard({ product }) {
     setIsInCart((prev) => !prev);
   };
 
-  const { title, price, id, stock, thumb, category, description } = product;
+  const { title, price, documentID, stock, thumb, productCategory } = product;
   return (
     <div className="card-container">
+      <div className="card-img-container">
+        <img src={thumb} alt="product-img" />
+      </div>
+      <div className="card-price">
+        <span>${price}</span>
+      </div>
+      <div className="card-control">
+        <AiOutlineArrowRight className="details" />
+        <AiOutlineShoppingCart className="cart" />
+      </div>
+      <div className="card-info-container">
+        <h3>{title}</h3>
+        <div className="cat">
+          {productCategory.map((el, idx) => (
+            <span key={idx}>{el}</span>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default ProductCard;
+
+/**
+ *     /* <div className="card-container">
       <div className="card-price">
         <span className="price">${price}</span>
       </div>
@@ -33,20 +59,17 @@ function ProductCard({ product }) {
       )}
       <div className="card-info">
         <h3 className="title">{title}</h3>
-        <p className="desc">{description}</p>
       </div>
 
       <div className="card-category">
-        <span>{category}</span>
+        {productCategory.map((el, idx) => (
+          <span key={idx}>{el}</span>
+        ))}
       </div>
 
       <div className="card-btn">
         <button>
-          <Link to={`/product/${id}`}>Details</Link>
+          <Link to={`/product/${documentID}`}>Details</Link>
         </button>
       </div>
-    </div>
-  );
-}
-
-export default ProductCard;
+    </div> */

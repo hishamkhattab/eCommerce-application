@@ -186,7 +186,6 @@ export const userSlice = createSlice({
     builder.addCase(signinWithGoogle.rejected, (state, action) => {
       state.isLoading = false;
       state.currentUser = {};
-      state.username = "";
       state.error = action.payload;
     });
 
@@ -228,7 +227,6 @@ export const userSlice = createSlice({
     builder.addCase(signupUser.rejected, (state, action) => {
       state.isLoading = false;
       state.currentUser = {};
-      state.username = "";
       state.error = action.payload;
     });
 
@@ -242,7 +240,6 @@ export const userSlice = createSlice({
     builder.addCase(signinUser.rejected, (state, action) => {
       state.isLoading = false;
       state.currentUser = {};
-      state.username = "";
       state.error = action.payload;
     });
 
