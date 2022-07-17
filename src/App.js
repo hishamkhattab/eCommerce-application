@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 // pages
-import { Homepage, Registerpage, Loginpage, ForgotPassword, Adminpage, Productpage } from "./pages";
+import { Homepage, Registerpage, Loginpage, ForgotPassword, Adminpage, Productpage, Categorypage } from "./pages";
 
 // components
 import { Header, Footer } from "./components";
@@ -33,12 +33,13 @@ function App() {
         <Route path="/login" element={<Loginpage />} />
         <Route path="/reset" element={<ForgotPassword />} />
         <Route path="/product/:productId" element={<Productpage />} />
+        <Route path="/category/:type" element={<Categorypage />} />
         <Route
           path="/admin"
           element={
             // <WithAdminAuth>
             <Adminpage />
-            /* </WithAdminAuth> */
+            // </WithAdminAuth>
           }
         />
       </Routes>

@@ -15,20 +15,23 @@ import {
   getDocs,
   deleteDoc,
 } from "firebase/firestore";
+import { act } from "react-dom/test-utils";
 import { auth, db } from "../firestore/utils";
 
-export const addProduct = createAsyncThunk("products/addProduct", async (product, APIThunk) => {
+export const addProduct = createAsyncThunk("products/addProduct", async ({ product, collectionName }, APIThunk) => {
   const { rejectWithValue } = APIThunk;
 
   try {
     const createdDate = new Date();
     const productAdminUserUID = auth.currentUser.uid;
 
-    await addDoc(collection(db, "products"), {
+    await addDoc(collection(db, collectionName), {
       ...product,
       createdDate,
       productAdminUserUID,
     });
+
+    return { product, collectionName };
   } catch (error) {
     return rejectWithValue(error.message);
   }
@@ -39,11 +42,11 @@ export const fetchProducts = createAsyncThunk(
   async ({ filterType, startAfterDoc, persistsProduct = [] }, APIThunk) => {
     const { rejectWithValue } = APIThunk;
 
-    const pageSize = 6;
+    const pageSize = 4;
     let q = query(collection(db, "products"), orderBy("createdDate", "desc"), limit(pageSize));
     try {
       if (filterType)
-        q = query(collection(db, "products"), where("productCategory", "==", filterType), limit(pageSize));
+        q = query(collection(db, "products"), where("productCategory", "array-contains", filterType), limit(pageSize));
       if (filterType && startAfterDoc) {
         q = query(
           collection(db, "products"),
@@ -110,6 +113,8 @@ export const fetchSingleProduct = createAsyncThunk("products/fetchSingleProduct"
 const initialState = {
   isLoading: false,
   products: [],
+  hotDeals: [],
+  newArrival: [],
   singleProduct: {},
   error: null,
 };
@@ -122,8 +127,23 @@ export const productSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(addProduct.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.products = [action.payload, ...state.products];
+      const { product, collectionName } = action.payload;
+      switch (collectionName) {
+        case "products":
+          state.products = [product, ...state.products];
+          state.isLoading = false;
+          break;
+        case "hotDeals":
+          state.hotDeals = [product, ...state.products];
+          state.isLoading = false;
+          break;
+        case "newArrival":
+          state.products = [product, ...state.products];
+          state.isLoading = false;
+          break;
+        default:
+          state.isLoading = false;
+      }
     });
     builder.addCase(addProduct.rejected, (state, action) => {
       state.isLoading = false;
@@ -133,6 +153,7 @@ export const productSlice = createSlice({
 
     builder.addCase(fetchProducts.pending, (state) => {
       state.isLoading = true;
+      state.products = [];
     });
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
       console.log(action.payload);

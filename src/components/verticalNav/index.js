@@ -15,9 +15,7 @@ function VerticalNav({ handleOpen }) {
         <p>
           <span>Email:</span> {currentUser.email}
         </p>
-        <p>
-          <span>Created at:</span> {currentUser.createdDate}
-        </p>
+        <p>{/* <span>Created at:</span> {currentUser.createdDate} */}</p>
       </div>
       <div className="control">
         <button onClick={handleOpen}>add product</button>

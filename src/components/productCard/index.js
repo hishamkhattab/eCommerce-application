@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { AiOutlineShoppingCart, AiOutlineArrowRight } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import "./style.scss";
 
 function ProductCard({ product }) {
   const [isInCart, setIsInCart] = useState(false);
 
+  const navigate = useNavigate();
   const handleIsInCart = () => {
     setIsInCart((prev) => !prev);
   };
@@ -21,7 +22,7 @@ function ProductCard({ product }) {
         <span>${price}</span>
       </div>
       <div className="card-control">
-        <AiOutlineArrowRight className="details" />
+        <AiOutlineArrowRight onClick={() => navigate(`/product/${documentID}`)} className="details" />
         <AiOutlineShoppingCart className="cart" />
       </div>
       <div className="card-info-container">

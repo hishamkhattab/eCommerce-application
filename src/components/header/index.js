@@ -26,7 +26,7 @@ function Header() {
           </Link>
         </div>
         <ul className="header-links">
-          {currentUser?.displayName && (
+          {Object.keys(currentUser).length > 0 && (
             <li>
               <Link to="/">
                 <div className="profile-img-container">

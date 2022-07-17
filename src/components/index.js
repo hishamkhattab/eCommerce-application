@@ -8,6 +8,7 @@ import ResetPassword from "./resetPassword";
 import VerticalNav from "./verticalNav";
 import ProductCard from "./productCard";
 import Modal from "./modal";
+import AddProdcut from "./addProduct";
 
 export {
   Header,
@@ -21,4 +22,5 @@ export {
   VerticalNav,
   ProductCard,
   Modal,
+  AddProdcut,
 };

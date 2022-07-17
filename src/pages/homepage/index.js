@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { HomeDirectory, ProductCard } from "../../components";
 
@@ -30,7 +31,21 @@ function Homepage() {
           <h2>Hot Deals</h2>
         </section>
         <section className="homepage-main-section">
-          <h2>Top Categories</h2>
+          <h2>Categories</h2>
+          <div className="categroies-container">
+            <div className="category">
+              <img src="./assets/product-1.jpg" alt="men" />
+              <Link to="/category/men" className="cat-link">
+                Men
+              </Link>
+            </div>
+            <div className="category">
+              <img src="./assets/product-2.jpg" alt="women" />
+              <Link to="/category/women" className="cat-link">
+                Women
+              </Link>
+            </div>
+          </div>
         </section>
       </div>
     </div>

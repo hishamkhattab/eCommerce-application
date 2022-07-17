@@ -8,9 +8,11 @@ import "./style.scss";
 function Productpage() {
   const { products } = useSelector((state) => state.products);
   const { productId } = useParams();
-  const { title, price, stock, thumb, productCategory, description, rate, review, createdDate } = products.find(
-    (el) => el.documentID === productId
-  );
+
+  const { title, price, stock, thumb, productCategory, description, rate, review, createdDate, images, size } =
+    products.find((el) => el.documentID === productId);
+  const [thumbImg, setThumbImg] = useState(thumb);
+  const [sizeState, setSizeState] = useState("unknow");
 
   const [qty, setQty] = useState(0);
 
@@ -21,11 +23,19 @@ function Productpage() {
     starArray.push(<IoMdStar key={i} />);
   }
 
+  console.log(sizeState);
   return (
     <div className="product-page">
       <div className="image-container">
         <div className="img">
-          <img src={thumb} alt="product" />
+          <img src={thumbImg} alt="product" />
+        </div>
+        <div className="other-img">
+          {Object.values(images).map((el, idx) => (
+            <button className="other-img-container" key={idx} onClick={() => setThumbImg(el)}>
+              <img src={el} alt="product" />
+            </button>
+          ))}
         </div>
       </div>
       <div className="product-details">
@@ -41,11 +51,16 @@ function Productpage() {
             <span key={idx}>{el}</span>
           ))}
         </div>
-        <div className="product-rate">
-          {starArray.map((el) => el)}
-          <span className="product-review">
-            <span>{review}</span> Reviews
-          </span>
+        <div className="product-rate">{starArray.map((el) => el)}</div>
+        <div className="product-size">
+          <p>size</p>
+          <div className="size-contaiiner">
+            {size.map((el, idx) => (
+              <button onClick={() => setSizeState(el)} key={idx}>
+                {el}
+              </button>
+            ))}
+          </div>
         </div>
         {stock > 0 && (
           <div className="product-stock">
