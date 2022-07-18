@@ -1,18 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { AiOutlineShoppingCart, AiOutlineArrowRight } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 
 import "./style.scss";
 
 function ProductCard({ product }) {
-  const [isInCart, setIsInCart] = useState(false);
-
   const navigate = useNavigate();
-  const handleIsInCart = () => {
-    setIsInCart((prev) => !prev);
-  };
 
   const { title, price, documentID, stock, thumb, productCategory } = product;
+  // const { title, price, documentID, stock, thumb } = product;
   return (
     <div className="card-container">
       <div className="card-img-container">

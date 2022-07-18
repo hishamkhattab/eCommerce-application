@@ -48,6 +48,30 @@
         text-transform: uppercase;
         font-weight: 600;
       }
+
+      .shopping-cart-container {
+        position: relative;
+
+        .shopping-cart {
+          font-size: 2.5rem;
+        }
+
+        span {
+          content: '';
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          border-radius: 50%;
+          background-color: firebrick;
+          top: calc(-100% / 2);
+          left: 50%;
+          transform: translateX(-50%);
+          display: grid;
+          place-items: center;
+          font-size: 1rem;
+          font-weight: 600;
+        }
+      }
     }
   }
 }

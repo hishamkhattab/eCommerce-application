@@ -18,7 +18,7 @@ function Categorypage() {
     <div className="category-page">
       <h2>{type}</h2>
       <div className="product-section">
-        {products.map((el) => (
+        {products.data.map((el) => (
           <ProductCard key={el.documentID} product={el} />
         ))}
       </div>

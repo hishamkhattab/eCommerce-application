@@ -55,7 +55,12 @@ export const fetchProducts = createAsyncThunk(
           limit(pageSize)
         );
       } else if (startAfterDoc) {
-        q = query(collection(db, "products"), startAfter(startAfterDoc), limit(pageSize));
+        q = query(
+          collection(db, "products"),
+          orderBy("createdDate", "desc"),
+          startAfter(startAfterDoc),
+          limit(pageSize)
+        );
       }
 
       let totalCount;
@@ -111,8 +116,8 @@ export const fetchSingleProduct = createAsyncThunk("products/fetchSingleProduct"
 });
 
 const initialState = {
-  isLoading: false,
-  products: [],
+  isLoading: true,
+  products: {},
   hotDeals: [],
   newArrival: [],
   singleProduct: {},
@@ -130,7 +135,7 @@ export const productSlice = createSlice({
       const { product, collectionName } = action.payload;
       switch (collectionName) {
         case "products":
-          state.products = [product, ...state.products];
+          state.products = { ...state.products, data: [product, ...state.products.data] };
           state.isLoading = false;
           break;
         case "hotDeals":
@@ -156,9 +161,8 @@ export const productSlice = createSlice({
       state.products = [];
     });
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
-      console.log(action.payload);
-      state.isLoading = true;
-      state.products = action.payload.data;
+      state.isLoading = false;
+      state.products = action.payload;
     });
     builder.addCase(fetchProducts.rejected, (state, action) => {
       console.log(action.payload);

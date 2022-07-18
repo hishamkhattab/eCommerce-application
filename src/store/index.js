@@ -10,6 +10,10 @@ const store = configureStore({
     products: productSlice,
     users: userSlice,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
 });
 
 export default store;

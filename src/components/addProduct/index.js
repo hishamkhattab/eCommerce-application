@@ -30,10 +30,6 @@ function AddProdcut({
 }) {
   return (
     <div className="add-product">
-      <div className="title">
-        <h3>Add Product</h3>
-      </div>
-
       <form onSubmit={(e) => e.preventDefault()} className="add-product-form">
         <div className="product-type">
           <select name="" id="" onClick={({ target }) => setCollenctionName(target.value)}>
@@ -47,11 +43,11 @@ function AddProdcut({
         </div>
 
         <div className="product-input">
-          <label htmlFor="product-title">Title</label>
+          <label htmlFor="product-title">Product Name</label>
           <input
             id="product-title"
             type="text"
-            placeholder="title"
+            placeholder="Product name"
             value={title}
             onChange={({ target }) => setTitle(target.value)}
           />
@@ -84,7 +80,7 @@ function AddProdcut({
           <input
             id="product-thumb"
             type="text"
-            placeholder="thumbnail url"
+            placeholder="image url"
             value={thumbnail}
             onChange={({ target }) => setThumbnail(target.value)}
           />
@@ -95,7 +91,7 @@ function AddProdcut({
           <input
             id="product-images"
             type="text"
-            placeholder="images url, seperated by (,)"
+            placeholder="seperate url with a comma"
             value={image}
             onChange={({ target }) => setImage(target.value)}
           />
@@ -106,7 +102,7 @@ function AddProdcut({
           <input
             id="product-category"
             type="text"
-            placeholder="category, seperated by (,)"
+            placeholder="seperate categories with a comma ex: men, jeans"
             value={productCategory}
             onChange={({ target }) => setproductCategory(target.value)}
           />
@@ -117,7 +113,7 @@ function AddProdcut({
           <input
             id="product-colors"
             type="text"
-            placeholder="Colors seperated by (,)"
+            placeholder="seperate colors with a comma ex: white, black"
             value={colors}
             onChange={({ target }) => setColors(target.value)}
           />
@@ -128,7 +124,7 @@ function AddProdcut({
           <input
             id="product-sizes"
             type="text"
-            placeholder="Sizes seperated by (,)"
+            placeholder="seperate sizes with a comma ex: large, x-large"
             value={sizes}
             onChange={({ target }) => setSizes(target.value)}
           />
@@ -145,7 +141,9 @@ function AddProdcut({
         </div>
 
         <div className="product-input">
-          <input type="button" value="Add" onClick={handleAdd} />
+          <button className="add-button" onClick={handleAdd}>
+            <span>Add</span>
+          </button>
         </div>
       </form>
     </div>

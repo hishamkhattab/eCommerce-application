@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { AiOutlineShoppingCart } from "react-icons/ai";
+
 import { useSelector, useDispatch } from "react-redux";
 import { signoutUser } from "../../store/userSlice";
 import { checkCurrentUserIsAdmin } from "../../utils";
@@ -27,13 +29,21 @@ function Header() {
         </div>
         <ul className="header-links">
           {Object.keys(currentUser).length > 0 && (
-            <li>
-              <Link to="/">
-                <div className="profile-img-container">
-                  <img src={currentUser.photoURL ? currentUser.photoURL : "./assets/user.png"} alt="profile" />
-                </div>
-              </Link>
-            </li>
+            <>
+              <li>
+                <Link to="/">
+                  <div className="profile-img-container">
+                    <img src={currentUser.photoURL ? currentUser.photoURL : "./assets/user.png"} alt="profile" />
+                  </div>
+                </Link>
+              </li>
+              <li className="shopping-cart-container">
+                <Link to="/cart">
+                  <AiOutlineShoppingCart className="shopping-cart" />
+                  <span>10</span>
+                </Link>
+              </li>
+            </>
           )}
           <li>{Object.keys(currentUser).length === 0 && <Link to="/register">register</Link>}</li>
           <li>

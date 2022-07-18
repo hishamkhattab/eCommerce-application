@@ -3,14 +3,13 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { HomeDirectory, ProductCard } from "../../components";
 
-import { fetchSingleProduct, fetchProducts } from "../../store/productSlice";
+import { fetchProducts } from "../../store/productSlice";
 import "./style.scss";
 
 function Homepage() {
   const { products } = useSelector((state) => state.products);
   const dispatch = useDispatch();
   useEffect(() => {
-    // dispatch(fetchSingleProduct("680T6Ggv9LobjSMrFOKb"));
     dispatch(fetchProducts({}));
   }, []);
 
@@ -24,7 +23,7 @@ function Homepage() {
           <h2>New Arrival</h2>
           <div className="product-section">
             {products &&
-              products.map((el, idx) => <ProductCard key={`${el.productAdminUserUID}-${idx}`} product={el} />)}
+              products.data.map((el, idx) => <ProductCard key={`${el.productAdminUserUID}-${idx}`} product={el} />)}
           </div>
         </section>
         <section className="homepage-main-section">

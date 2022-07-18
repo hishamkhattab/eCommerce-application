@@ -1,9 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import "./style.scss";
 
-function VerticalNav({ handleOpen }) {
+function VerticalNav() {
   const { currentUser } = useSelector((state) => state.users);
 
   return (
@@ -17,27 +18,18 @@ function VerticalNav({ handleOpen }) {
         </p>
         <p>{/* <span>Created at:</span> {currentUser.createdDate} */}</p>
       </div>
-      <div className="control">
-        <button onClick={handleOpen}>add product</button>
+      <div className="links">
+        <Link to="/admin/addProduct">Add Product</Link>
+        <Link to="/admin/showProducts">Show Products</Link>
       </div>
-      <div className="users-list">
+      {/* <div className="users-list">
         <p className="user-title">Users:</p>
         <div className="user">
           <span>name</span>
           <span>-</span>
           <span>email</span>
         </div>
-        <div className="user">
-          <span>name</span>
-          <span>-</span>
-          <span>email</span>
-        </div>
-        <div className="user">
-          <span>name</span>
-          <span>-</span>
-          <span>email</span>
-        </div>
-      </div>
+      </div> */}
     </div>
   );
 }
