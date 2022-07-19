@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { AiOutlineArrowDown, AiOutlineDoubleRight } from "react-icons/ai";
+import { AiOutlineDoubleRight } from "react-icons/ai";
 // components
 import { ProductCard } from "../../components";
 
@@ -13,12 +13,13 @@ function AdminProductspage() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchProducts({}));
+    dispatch(fetchProducts({ collectionName: "products" }));
   }, []);
 
   const handleLoadMore = () => {
     dispatch(
       fetchProducts({
+        collectionName: "products",
         startAfterDoc: products.queryDoc,
         persistsProduct: products.data,
       })

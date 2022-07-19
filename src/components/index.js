@@ -9,6 +9,7 @@ import VerticalNav from "./verticalNav";
 import ProductCard from "./productCard";
 import Modal from "./modal";
 import AddProdcut from "./addProduct";
+import LoadMoreButton from "./LoadMoreButton";
 
 export {
   Header,
@@ -23,4 +24,5 @@ export {
   ProductCard,
   Modal,
   AddProdcut,
+  LoadMoreButton,
 };

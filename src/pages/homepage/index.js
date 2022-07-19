@@ -7,10 +7,10 @@ import { fetchProducts } from "../../store/productSlice";
 import "./style.scss";
 
 function Homepage() {
-  const { products } = useSelector((state) => state.products);
+  const { products, isLoading } = useSelector((state) => state.products);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchProducts({}));
+    dispatch(fetchProducts({ collectionName: "products" }));
   }, []);
 
   console.log(products);
@@ -22,7 +22,7 @@ function Homepage() {
         <section className="homepage-main-section">
           <h2>New Arrival</h2>
           <div className="product-section">
-            {products &&
+            {!isLoading &&
               products.data.map((el, idx) => <ProductCard key={`${el.productAdminUserUID}-${idx}`} product={el} />)}
           </div>
         </section>

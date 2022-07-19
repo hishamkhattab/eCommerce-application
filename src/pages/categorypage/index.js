@@ -3,25 +3,36 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../store/productSlice";
 import "./style.scss";
-import { ProductCard } from "../../components";
+import { ProductCard, LoadMoreButton } from "../../components";
 
 function Categorypage() {
-  const { products } = useSelector((state) => state.products);
+  const { products, isLoading } = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const { type } = useParams();
 
   useEffect(() => {
-    dispatch(fetchProducts({ filterType: type }));
+    dispatch(fetchProducts({ filterType: type, collectionName: "products" }));
   }, []);
+
+  console.log(products);
+  const handleLoadMore = () => {
+    dispatch(
+      fetchProducts({
+        filterType: type,
+        collectionName: "products",
+        startAfterDoc: products.queryDoc,
+        persistsProduct: products.data,
+      })
+    );
+  };
 
   return (
     <div className="category-page">
       <h2>{type}</h2>
       <div className="product-section">
-        {products.data.map((el) => (
-          <ProductCard key={el.documentID} product={el} />
-        ))}
+        {!isLoading && products.data.map((el) => <ProductCard key={el.documentID} product={el} />)}
       </div>
+      {!products.isLastPage && <LoadMoreButton handleLoadMore={handleLoadMore} />}
     </div>
   );
 }
