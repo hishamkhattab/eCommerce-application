@@ -11,7 +11,7 @@
 
 .slider-container {
   position: relative;
-  height: 35rem;
+  height: 65rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,6 +34,7 @@
       height: 100%;
       background-size: cover;
       background-color: #333;
+      filter: brightness(75%);
     }
   }
 
@@ -64,10 +65,10 @@
   }
 
   .right-arrow {
-    @include arrow("right");
+    @include arrow('right');
   }
 
   .left-arrow {
-    @include arrow("left");
+    @include arrow('left');
   }
 }

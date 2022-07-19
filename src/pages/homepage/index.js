@@ -28,18 +28,22 @@ function Homepage() {
         </section>
         <section className="homepage-main-section">
           <h2>Hot Deals</h2>
+          <div className="product-section">
+            {!isLoading &&
+              products.data.map((el, idx) => <ProductCard key={`${el.productAdminUserUID}-${idx}`} product={el} />)}
+          </div>
         </section>
         <section className="homepage-main-section">
           <h2>Categories</h2>
           <div className="categroies-container">
             <div className="category">
-              <img src="./assets/product-1.jpg" alt="men" />
+              <img src="./assets/men.jpg" alt="men" />
               <Link to="/category/men" className="cat-link">
                 Men
               </Link>
             </div>
             <div className="category">
-              <img src="./assets/product-2.jpg" alt="women" />
+              <img src="./assets/women.jpg" alt="women" />
               <Link to="/category/women" className="cat-link">
                 Women
               </Link>
