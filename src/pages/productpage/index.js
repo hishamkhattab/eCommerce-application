@@ -13,13 +13,18 @@ function Productpage() {
   const dispatch = useDispatch();
   const { productId, productCollection } = useParams();
 
-  const [thumbImg, setThumbImg] = useState(singleProduct.thumb);
+  const [thumbImg, setThumbImg] = useState("");
   const [sizeState, setSizeState] = useState("unknow");
+  const [colorState, setColorState] = useState("unknow");
 
   useEffect(() => {
     dispatch(fetchSingleProduct({ productId, collectionName: productCollection }));
-    setThumbImg(singleProduct.thumb);
   }, []);
+
+  useEffect(() => {
+    setThumbImg(singleProduct.thumb);
+  }, [singleProduct]);
+
   const [qty, setQty] = useState(0);
 
   const starArray = new Array(parseInt(5));
@@ -65,17 +70,33 @@ function Productpage() {
             <h3 className="product-title">{singleProduct.title}</h3>
             <p className="product-price">${singleProduct.price}</p>
             <p className="product-description">{singleProduct.description}</p>
-            <div className="product-category">
-              {singleProduct.productCategory.map((el, idx) => (
-                <span key={idx}>{el}</span>
-              ))}
+            <div className="product-info">
+              <p>Category</p>
+              <div className="info-contaiiner">
+                {singleProduct.productCategory.map((el, idx) => (
+                  <span key={idx}>{el}</span>
+                ))}
+              </div>
             </div>
-            <div className="product-rate">{starArray.map((el) => el)}</div>
-            <div className="product-size">
+            <div className="product-info">
               <p>size</p>
-              <div className="size-contaiiner">
+              <div className="info-contaiiner">
                 {singleProduct.size.map((el, idx) => (
-                  <button onClick={() => setSizeState(el)} key={idx}>
+                  <button onClick={() => setSizeState(el)} key={idx} className={sizeState === el ? "size-active" : ""}>
+                    {el}
+                  </button>
+                ))}
+              </div>
+            </div>
+            <div className="product-info">
+              <p>Color</p>
+              <div className="info-contaiiner">
+                {singleProduct.colors.map((el, idx) => (
+                  <button
+                    onClick={() => setColorState(el)}
+                    key={idx}
+                    className={colorState === el ? "size-active" : ""}
+                  >
                     {el}
                   </button>
                 ))}
@@ -84,7 +105,7 @@ function Productpage() {
             {singleProduct.stock > 0 && (
               <div className="product-stock">
                 <span>Quantity</span>
-                <span>{qty}</span>
+                <span className="qty">{qty}</span>
                 <div className="control">
                   <IoMdArrowDropup
                     className="control-arrow"
@@ -107,7 +128,7 @@ function Productpage() {
               </div>
             )}
             <div className="product-control">
-              <button>
+              <button className="add-button">
                 <span>Add To Cart</span>
               </button>
             </div>

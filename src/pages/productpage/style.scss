@@ -58,6 +58,7 @@
     .product-price {
       text-align: center;
       font-weight: 600;
+      color: crimson;
     }
 
     .product-description {
@@ -89,14 +90,7 @@
       }
     }
 
-    .product-rate {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 1em 0;
-      color: #333;
-    }
-    .product-size {
+    .product-info {
       font-size: 1.2rem;
       margin-left: 1.2rem;
       display: flex;
@@ -108,23 +102,34 @@
         font-size: 1.5em;
         font-weight: 600;
       }
-      .size-contaiiner {
+      .info-contaiiner {
         display: flex;
         margin: 1rem 0;
-        button {
-          cursor: pointer;
-          outline: none;
-          border: 0;
+        button,
+        span {
           margin: 0 0.5rem;
-          display: grid;
           place-items: center;
-          font-weight: 600;
+          display: grid;
           width: max-content;
+          font-weight: 600;
           text-transform: capitalize;
           border-radius: 5px;
           background-color: #64595958;
           color: #333;
           font-size: 1rem;
+        }
+        span {
+          padding: 0.5rem;
+          border: 1px solid #333;
+        }
+        button {
+          cursor: pointer;
+          outline: none;
+          border: 1px solid transparent;
+
+          &.size-active {
+            border: 1px solid #333;
+          }
         }
       }
     }
@@ -159,6 +164,10 @@
           font-weight: 600;
         }
       }
+
+      .qty {
+        user-select: none;
+      }
     }
 
     .product-date {
@@ -175,22 +184,6 @@
     .product-control {
       margin: 1.5em 0;
       text-align: center;
-
-      button {
-        position: relative;
-        width: 50%;
-        padding: 1rem 2rem;
-        cursor: pointer;
-        outline: none;
-        background-color: transparent;
-        border-color: transparent;
-        color: #333;
-        border: 1px double #333;
-        outline: #333;
-        font-size: 1em;
-        text-transform: uppercase;
-        overflow: hidden;
-      }
     }
   }
 }
