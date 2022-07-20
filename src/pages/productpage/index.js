@@ -6,6 +6,8 @@ import { IoMdArrowDropup, IoMdArrowDropdown, IoMdStar } from "react-icons/io";
 import "./style.scss";
 import { fetchSingleProduct } from "../../store/productSlice";
 
+import { Loading } from "../../components";
+
 function Productpage() {
   const { singleProduct, isLoading } = useSelector((state) => state.products);
   const dispatch = useDispatch();
@@ -29,7 +31,11 @@ function Productpage() {
 
   return (
     <>
-      {isLoading && <p className="load-page">Loading...</p>}
+      {isLoading && (
+        <div className="loading-container">
+          <Loading />
+        </div>
+      )}
       {!isLoading && (
         <div className="product-page">
           <div className="image-container">

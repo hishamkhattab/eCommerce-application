@@ -10,6 +10,7 @@ import ProductCard from "./productCard";
 import Modal from "./modal";
 import AddProdcut from "./addProduct";
 import LoadMoreButton from "./LoadMoreButton";
+import Loading from "./loading";
 
 export {
   Header,
@@ -25,4 +26,5 @@ export {
   Modal,
   AddProdcut,
   LoadMoreButton,
+  Loading,
 };
