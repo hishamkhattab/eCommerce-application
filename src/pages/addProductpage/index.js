@@ -41,16 +41,16 @@ function AddProductpage() {
       price,
       stock,
       thumb: thumbnail,
-      image: image.split(",").map((el) => el.trim()),
+      images: image.split(",").map((el) => el.trim()),
       productCategory: productCategory.split(",").map((el) => el.trim()),
       colors: colors.split(",").map((el) => el.trim()),
-      sizes: sizes.split(",").map((el) => el.trim()),
+      size: sizes.split(",").map((el) => el.trim()),
       description: productDesc,
     };
     console.log(product);
     console.log(collectionName);
 
-    // dispatch(addProduct({ product, collectionName }));
+    dispatch(addProduct({ product, collectionName }));
     // clearForm();
   };
 

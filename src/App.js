@@ -43,7 +43,7 @@ function App() {
         <Route path="/register" element={<Registerpage />} />
         <Route path="/login" element={<Loginpage />} />
         <Route path="/reset" element={<ForgotPassword />} />
-        <Route path="/product/:productId" element={<Productpage />} />
+        <Route path="/product/:productCollection/:productId" element={<Productpage />} />
         <Route path="/category/:type" element={<Categorypage />} />
         <Route path="/cart" element={<Cartpage />} />
         <Route

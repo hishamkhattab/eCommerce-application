@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import "./style.scss";
 
-function ProductCard({ product }) {
+function ProductCard({ product, collection }) {
   const navigate = useNavigate();
 
   const { title, price, documentID, stock, thumb, productCategory } = product;
@@ -18,7 +18,7 @@ function ProductCard({ product }) {
         <span>${price}</span>
       </div>
       <div className="card-control">
-        <AiOutlineArrowRight onClick={() => navigate(`/product/${documentID}`)} className="details" />
+        <AiOutlineArrowRight onClick={() => navigate(`/product/${collection}/${documentID}`)} className="details" />
         <AiOutlineShoppingCart className="cart" />
       </div>
       <div className="card-info-container">

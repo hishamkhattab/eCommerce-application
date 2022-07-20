@@ -24,7 +24,7 @@ function Header() {
       <div className="header-wrapper">
         <div className="logo-wrapper">
           <Link to="/" className="img-container">
-            <img src="./assets/Babylon-logos_transparent.png" alt="logo" />
+            <img src="/assets/Babylon-logos_transparent.png" alt="logo" />
           </Link>
         </div>
         <ul className="header-links">

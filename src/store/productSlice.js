@@ -108,22 +108,27 @@ export const deleteProduct = createAsyncThunk(
   }
 );
 
-export const fetchSingleProduct = createAsyncThunk("products/fetchSingleProduct", async (productId, APIThunk) => {
-  const { rejectWithValue } = APIThunk;
+export const fetchSingleProduct = createAsyncThunk(
+  "products/fetchSingleProduct",
+  async ({ productId, collectionName }, APIThunk) => {
+    const { rejectWithValue } = APIThunk;
 
-  try {
-    const docRef = doc(db, "products", productId);
-    const snapshot = await getDoc(docRef);
+    const docRef = doc(db, collectionName, productId);
+    try {
+      const snapshot = await getDoc(docRef);
 
-    if (snapshot.exists)
-      return {
-        ...snapshot.data(),
-        documentID: productId,
-      };
-  } catch (error) {
-    return rejectWithValue(error.message);
+      if (snapshot.exists) {
+        return {
+          ...snapshot.data(),
+          documentID: productId,
+          createdDate: snapshot.data().createdDate.toDate().toDateString(),
+        };
+      }
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
   }
-});
+);
 
 const initialState = {
   isLoading: true,
@@ -186,7 +191,7 @@ export const productSlice = createSlice({
 
           break;
         case "newArrival":
-          state.products = { data, queryDoc, isLastPage };
+          state.newArrival = { data, queryDoc, isLastPage };
 
           break;
         default:
