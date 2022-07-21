@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../store/productSlice";
 import "./style.scss";
-import { ProductCard, LoadMoreButton } from "../../components";
+import { ProductCard, LoadMoreButton, Loading } from "../../components";
 
 function Categorypage() {
   const { products, isLoading } = useSelector((state) => state.products);
@@ -14,7 +14,7 @@ function Categorypage() {
     dispatch(fetchProducts({ filterType: type, collectionName: "products" }));
   }, []);
 
-  console.log(products);
+  console.log(type);
   const handleLoadMore = () => {
     dispatch(
       fetchProducts({
@@ -28,9 +28,12 @@ function Categorypage() {
 
   return (
     <div className="category-page">
-      <h2>{type}</h2>
-      <div className="product-section">
-        {!isLoading && products.data.map((el) => <ProductCard key={el.documentID} product={el} />)}
+      <div className="main-section">
+        <h2>{type}</h2>
+        <div className="product-section">
+          {isLoading && <Loading />}
+          {!isLoading && products.data.map((el) => <ProductCard key={el.documentID} product={el} />)}
+        </div>
       </div>
       {!products.isLastPage && <LoadMoreButton handleLoadMore={handleLoadMore} />}
     </div>

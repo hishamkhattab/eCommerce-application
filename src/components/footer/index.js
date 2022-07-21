@@ -9,7 +9,7 @@ function Footer() {
         <img src="/assets/Babylon-logos_transparent.png" alt="logo" />
       </div>
       <div className="info">
-        <span>All copyright are reserved 2002 &copy;</span>
+        <span>All copyright are reserved 2022 &copy;</span>
       </div>
     </div>
   );

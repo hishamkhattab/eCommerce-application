@@ -17,13 +17,25 @@ body {
 
 body {
   background: #ffefba;
-  background: linear-gradient(to right, #ffffff, #ffefba);
-
+  background: linear-gradient(45deg, #ffffff 0%, #ffefba 100%);
+  background-size: 4000% 4000%;
+  animation: background-animation 5s cubic-bezier(0.39, 0.58, 0.57, 1) infinite;
   font-family: 'Open Sans', sans-serif;
   font-size: 1.8rem;
   font-weight: 400;
   line-height: 1;
-  // overflow-x: hidden;
+}
+
+@keyframes background-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 a {
@@ -50,6 +62,9 @@ ul {
   list-style: none;
 }
 
+/*global classes*/
+
+//form -layout
 .form-layout {
   padding: 1rem;
 
@@ -72,13 +87,14 @@ ul {
   }
 }
 
-//global classes
+//loading container
 .loading-container {
   height: 100vh;
   display: grid;
   place-items: center;
 }
 
+//global button
 .add-button {
   position: relative;
   display: block;
@@ -102,7 +118,6 @@ ul {
   &:after {
     content: '';
     position: absolute;
-    // background-color: #ffefba;
     background: linear-gradient(to right, #ffffff, #ffefba);
     transition: all 0.5s ease-in-out;
     z-index: -1;
@@ -130,5 +145,53 @@ ul {
 
   &:hover {
     background-color: #fff;
+  }
+}
+
+//global section
+.main-section {
+  h2 {
+    text-align: center;
+    margin: {
+      top: 2rem;
+      bottom: 3rem;
+    }
+    font-size: 3.5rem;
+    text-transform: uppercase;
+    font-weight: normal;
+    position: relative;
+
+    &:before {
+      content: '';
+      position: absolute;
+      width: 20%;
+      height: 0.1rem;
+      background-color: #333;
+      bottom: -1.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      width: 1rem;
+      height: 1rem;
+      background-color: white;
+      border-radius: 50%;
+      border: 1px solid #333;
+      bottom: -1.5rem;
+      left: 50%;
+      transform: translate(-50%, 0.5rem);
+    }
+  }
+
+  .product-section {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+    grid-template-columns: repeat(4, 1fr);
+    padding: 1.5rem 0;
+    column-gap: 1em;
   }
 }
