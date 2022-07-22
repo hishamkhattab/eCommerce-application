@@ -8,7 +8,7 @@ import "./style.scss";
 
 function Adminpage() {
   return (
-    <div className="admin-page">
+    <div className="admin-page main-page-container">
       <VerticalNav />
       <Outlet />
     </div>

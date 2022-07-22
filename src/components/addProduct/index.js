@@ -141,7 +141,7 @@ function AddProdcut({
         </div>
 
         <div className="product-input">
-          <button className="add-button" onClick={handleAdd}>
+          <button className="global-btn" onClick={handleAdd}>
             <span>Add</span>
           </button>
         </div>

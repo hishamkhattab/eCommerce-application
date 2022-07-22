@@ -95,7 +95,7 @@ ul {
 }
 
 //global button
-.add-button {
+.global-btn {
   position: relative;
   display: block;
   margin: 0 auto;
@@ -111,6 +111,9 @@ ul {
   align-items: center;
   z-index: 0;
 
+  a {
+    color: #333;
+  }
   span {
     user-select: none;
   }
@@ -194,4 +197,9 @@ ul {
     padding: 1.5rem 0;
     column-gap: 1em;
   }
+}
+
+//main-page-container
+.main-page-container {
+  min-height: 100vh;
 }

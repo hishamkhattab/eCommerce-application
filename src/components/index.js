@@ -11,6 +11,7 @@ import Modal from "./modal";
 import AddProdcut from "./addProduct";
 import LoadMoreButton from "./LoadMoreButton";
 import Loading from "./loading";
+import ProductContent from "./productContent";
 
 export {
   Header,
@@ -27,4 +28,5 @@ export {
   AddProdcut,
   LoadMoreButton,
   Loading,
+  ProductContent,
 };

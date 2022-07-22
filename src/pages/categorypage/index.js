@@ -27,7 +27,7 @@ function Categorypage() {
   };
 
   return (
-    <div className="category-page">
+    <div className="category-page main-page-container">
       <div className="main-section">
         <h2>{type}</h2>
         <div className="product-section">

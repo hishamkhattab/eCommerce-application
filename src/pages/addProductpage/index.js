@@ -47,11 +47,9 @@ function AddProductpage() {
       size: sizes.split(",").map((el) => el.trim()),
       description: productDesc,
     };
-    console.log(product);
-    console.log(collectionName);
 
     dispatch(addProduct({ product, collectionName }));
-    // clearForm();
+    clearForm();
   };
 
   return (

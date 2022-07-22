@@ -18,7 +18,7 @@ function Homepage() {
   }, []);
 
   return (
-    <div className="homepage-container">
+    <div className="homepage-container main-page-container">
       <HomeDirectory />
 
       <div className="homepage-content">
