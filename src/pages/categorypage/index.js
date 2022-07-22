@@ -14,7 +14,6 @@ function Categorypage() {
     dispatch(fetchProducts({ filterType: type, collectionName: "products" }));
   }, []);
 
-  console.log(type);
   const handleLoadMore = () => {
     dispatch(
       fetchProducts({
@@ -32,7 +31,9 @@ function Categorypage() {
         <h2>{type}</h2>
         <div className="product-section">
           {isLoading && <Loading />}
-          {!isLoading && products.data.map((el) => <ProductCard key={el.documentID} product={el} />)}
+          {!isLoading &&
+            Object.keys(products).length > 0 &&
+            products.data.map((el) => <ProductCard key={el.documentID} product={el} />)}
         </div>
       </div>
       {!products.isLastPage && <LoadMoreButton handleLoadMore={handleLoadMore} />}

@@ -7,8 +7,12 @@ import { signoutUser } from "../../store/userSlice";
 import { checkCurrentUserIsAdmin } from "../../utils";
 import "./style.scss";
 
+const mapppedState = (state) => ({
+  currentUser: state.users.currentUser,
+  cartTotal: state.carts.cart.length,
+});
 function Header() {
-  const { currentUser } = useSelector((state) => state.users);
+  const { currentUser, cartTotal } = useSelector(mapppedState);
   const dispatch = useDispatch();
 
   const isAdmin = checkCurrentUserIsAdmin(currentUser);
@@ -29,22 +33,20 @@ function Header() {
         </div>
         <ul className="header-links">
           {Object.keys(currentUser).length > 0 && (
-            <>
-              <li>
-                <Link to="/">
-                  <div className="profile-img-container">
-                    <img src={currentUser.photoURL ? currentUser.photoURL : "./assets/user.png"} alt="profile" />
-                  </div>
-                </Link>
-              </li>
-              <li className="shopping-cart-container">
-                <Link to="/cart">
-                  <AiOutlineShoppingCart className="shopping-cart" />
-                  <span>10</span>
-                </Link>
-              </li>
-            </>
+            <li>
+              <Link to="/">
+                <div className="profile-img-container">
+                  <img src={currentUser.photoURL ? currentUser.photoURL : "./assets/user.png"} alt="profile" />
+                </div>
+              </Link>
+            </li>
           )}
+          <li className="shopping-cart-container">
+            <Link to="/cart">
+              <AiOutlineShoppingCart className="shopping-cart" />
+              <span>{cartTotal}</span>
+            </Link>
+          </li>
           <li>{Object.keys(currentUser).length === 0 && <Link to="/register">register</Link>}</li>
           <li>
             {Object.keys(currentUser).length === 0 && <Link to="/login">login</Link>}

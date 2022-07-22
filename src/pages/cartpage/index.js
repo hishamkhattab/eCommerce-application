@@ -1,33 +1,42 @@
 import React from "react";
-import { IoMdArrowDropup, IoMdArrowDropdown, IoMdRemove } from "react-icons/io";
+import { useSelector, useDispatch } from "react-redux";
+import { ProductCart } from "../../components";
 
+import { reduceCartItem, increaseCartItem, removeCartItem } from "../../store/cartSlice";
 import "./style.scss";
 
 function Cartpage() {
+  const { cart } = useSelector((state) => state.carts);
+  const dispatch = useDispatch();
+
+  const handleReduceQty = (product) => {
+    dispatch(reduceCartItem(product));
+  };
+
+  const handleIncreaseQty = (product) => {
+    dispatch(increaseCartItem(product));
+  };
+
+  const handleRemoveProduct = (product) => {
+    dispatch(removeCartItem(product));
+  };
+
   return (
     <div className="main-page-container cart-page">
       <div className="main-section">
         <h2>Cart</h2>
       </div>
 
-      <div className="cart-content">
-        <div className="cart-product">
-          <div className="img-container">
-            <img src="/assets/men.jpg" alt="" />
-          </div>
-          <h6 className="product-name">Wrangler Mens Authentics Men's Short Sleeve Classic Woven Shirt Shirt</h6>
-          <p className="product-price">$20.99</p>
-          <div className="product-qty">
-            <span>3</span>
-            <div className="control">
-              <IoMdArrowDropup />
-              <IoMdArrowDropdown />
-            </div>
-          </div>
-          <p>$62.97</p>
-          <IoMdRemove />
-        </div>
-      </div>
+      <div className="cart-content" />
+      {cart.map((product) => (
+        <ProductCart
+          key={product.documentID}
+          product={product}
+          reduceQty={handleReduceQty}
+          increseQty={handleIncreaseQty}
+          removeProduct={handleRemoveProduct}
+        />
+      ))}
     </div>
   );
 }
