@@ -1,6 +1,9 @@
 .cart-page {
   padding: 0 3em;
 
-  .cart-content {
+  .cart-control {
+    display: flex;
+    align-items: center;
+    margin: 1em 0;
   }
 }

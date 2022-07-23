@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { ProductCart } from "../../components";
 
@@ -37,6 +38,17 @@ function Cartpage() {
           removeProduct={handleRemoveProduct}
         />
       ))}
+
+      {cart.length > 0 && (
+        <div className="cart-control">
+          <button className="global-btn" onClick={() => {}}>
+            <Link to="/">continue Shopping</Link>
+          </button>
+          <button className="global-btn" onClick={() => {}}>
+            <Link to="/purchase">purchase</Link>
+          </button>
+        </div>
+      )}
     </div>
   );
 }
