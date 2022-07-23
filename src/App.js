@@ -14,6 +14,7 @@ import {
   Cartpage,
   AddProductpage,
   AdminProductspage,
+  Purchasepage,
 } from "./pages";
 
 // components
@@ -46,6 +47,7 @@ function App() {
         <Route path="/product/:productCollection/:productId" element={<Productpage />} />
         <Route path="/category/:type" element={<Categorypage />} />
         <Route path="/cart" element={<Cartpage />} />
+        <Route path="/purchase" element={<Purchasepage />} />
         <Route
           path="/admin"
           element={

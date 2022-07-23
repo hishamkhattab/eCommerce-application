@@ -8,6 +8,7 @@ import Categorypage from "./categorypage";
 import Cartpage from "./cartpage";
 import AddProductpage from "./addProductpage";
 import AdminProductspage from "./adminProductspage";
+import Purchasepage from "./purchasepage";
 
 export {
   Homepage,
@@ -20,4 +21,5 @@ export {
   Cartpage,
   AddProductpage,
   AdminProductspage,
+  Purchasepage,
 };
