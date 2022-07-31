@@ -2,15 +2,15 @@
   padding-bottom: 5px;
   box-shadow: 0px -8px 10px -3px rgba(255, 255, 255, 0.66);
   position: relative;
-  background-color: #d9d3d6;
+  background-color: #ecb390;
 
   svg {
     cursor: pointer;
     font-size: 1.5em;
+    color: #fcf8e8;
   }
 
   a {
-    color: #fff;
     text-transform: uppercase;
     font-weight: 600;
   }
@@ -46,6 +46,7 @@
           transform: translateY(-50%);
           font-size: 1.6em;
           cursor: pointer;
+          z-index: 1000;
         }
         input {
           position: absolute;
@@ -59,6 +60,7 @@
           padding: 5px 10px;
           outline: none;
           border: 0;
+          z-index: 100;
         }
       }
     }
@@ -84,6 +86,10 @@
       align-self: center;
       width: 100px;
 
+      svg {
+        color: #fcf8e8;
+      }
+
       .shopping-cart-container {
         position: relative;
 
@@ -105,6 +111,7 @@
           place-items: center;
           font-size: 1rem;
           font-weight: 600;
+          color: #fff;
         }
       }
     }
@@ -116,19 +123,20 @@
     align-items: center;
 
     &.sticky {
-      background-color: #fff;
       z-index: 10000;
       position: fixed;
       top: 0;
       margin-top: 0;
       width: 100%;
+      background-color: #ecb390;
+      padding: 0.5em 0;
     }
 
     li {
       padding: 10px;
 
       a {
-        color: #333;
+        color: #fcf8e8;
         text-transform: uppercase;
         border: 1px solid transparent;
         border-top-left-radius: 15px;
@@ -137,7 +145,7 @@
         transition: border-color 0.3s ease-in;
 
         &:hover {
-          border-color: #fff;
+          border-color: #cee5d0;
         }
       }
     }

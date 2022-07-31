@@ -55,7 +55,7 @@ function Header() {
           <ul className="logo">
             <li>
               <Link to="/">
-                <img src="/assets/Babylon-logos_black.png" alt="logo" />
+                <img src="/assets/Babylon-logos_white.png" alt="logo" />
               </Link>
             </li>
           </ul>

@@ -20,10 +20,11 @@ body {
   background: linear-gradient(45deg, #ffffff 0%, #ffefba 100%);
   background-size: 4000% 4000%;
   animation: background-animation 5s cubic-bezier(0.39, 0.58, 0.57, 1) infinite;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 1.8rem;
   font-weight: 400;
   line-height: 1;
+  position: relative;
 }
 
 @keyframes background-animation {
@@ -192,12 +193,42 @@ ul {
   }
 
   .product-section {
-    display: grid;
-    align-items: center;
-    justify-content: center;
-    grid-template-columns: repeat(4, 1fr);
-    padding: 1.5rem 0;
-    column-gap: 1em;
+    padding: 1em 3em;
+    margin-bottom: 5em;
+
+    .slide-show {
+      display: flex;
+      flex-wrap: nowrap;
+      flex-direction: row;
+      align-items: center;
+      overflow-y: hidden;
+      overflow-x: scroll;
+      padding: 15px;
+      height: 600px;
+      column-gap: 1em;
+
+      &::-webkit-scrollbar-track {
+        color: #fff;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        color: #212121;
+      }
+
+      &::-webkit-scrollbar {
+        width: 10px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #f2f2f2;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background-color: #212121;
+        border-radius: 10px;
+        border: 3px solid #212121;
+      }
+    }
   }
 }
 

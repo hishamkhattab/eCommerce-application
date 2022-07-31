@@ -1,6 +1,5 @@
 import Header from "./header";
 import HomeDirectory from "./homeDirectory";
-import Carousel, { CarouselItem } from "./carousel";
 import Footer from "./footer";
 import Signup from "./signup";
 import Signin from "./signin";
@@ -14,12 +13,12 @@ import Loading from "./loading";
 import ProductContent from "./productContent";
 import ProductCart from "./productCart";
 import PurchaseForm from "./purchaseForm";
+import ProductCategory from "./productCategory";
+import CategoryCard from "./categoryCard";
 
 export {
   Header,
   HomeDirectory,
-  Carousel,
-  CarouselItem,
   Footer,
   Signup,
   Signin,
@@ -33,4 +32,6 @@ export {
   ProductContent,
   ProductCart,
   PurchaseForm,
+  ProductCategory,
+  CategoryCard,
 };
