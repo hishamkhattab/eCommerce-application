@@ -1,38 +1,34 @@
-import React from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { AiOutlineShoppingCart, AiOutlineArrowRight } from "react-icons/ai";
-
-import { addToCart } from "../../store/cartSlice";
+import React, { useState } from "react";
 import "./style.scss";
 
 function ProductCard({ product, collection }) {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const [mouseEntered, setMouseEntered] = useState(false);
+  const [viewDetails, setViewDetails] = useState(false);
 
-  const { title, price, documentID, thumb, productCategory } = product;
+  const { title, price, documentID, thumb } = product;
 
   return (
-    <div className="card-container">
-      <div className="card-img-container">
-        <img src={thumb} alt="product-img" />
-      </div>
-      <div className="card-price">
-        <span>${price}</span>
-      </div>
-      <div className="card-control">
-        <AiOutlineArrowRight onClick={() => navigate(`/product/${collection}/${documentID}`)} className="details" />
-        <AiOutlineShoppingCart onClick={() => dispatch(addToCart(product))} className="cart" />
-      </div>
-      <div className="card-info-container">
-        <h3>{title}</h3>
-        <div className="cat">
-          {productCategory.map((el, idx) => (
-            <span key={idx}>{el}</span>
-          ))}
+    <>
+      <div
+        className="product-card"
+        onMouseEnter={() => setMouseEntered(true)}
+        onMouseLeave={() => setMouseEntered(false)}
+      >
+        <div className="product-img-container">
+          <img src={thumb} alt="prodcut" />
+          {mouseEntered && (
+            <button onClick={() => setViewDetails(true)} className="quick-view">
+              Quick View
+            </button>
+          )}
+        </div>
+        <div className="product-info">
+          <h4 className="product-title">{title}</h4>
+          <p className="product-price">$ {price}</p>
         </div>
       </div>
-    </div>
+      {/* {viewDetails && <Model open={setViewDetails} />} */}
+    </>
   );
 }
 
