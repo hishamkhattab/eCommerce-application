@@ -13,6 +13,7 @@ import LoadMoreButton from "./LoadMoreButton";
 import Loading from "./loading";
 import ProductContent from "./productContent";
 import ProductCart from "./productCart";
+import PurchaseForm from "./purchaseForm";
 
 export {
   Header,
@@ -31,4 +32,5 @@ export {
   Loading,
   ProductContent,
   ProductCart,
+  PurchaseForm,
 };
