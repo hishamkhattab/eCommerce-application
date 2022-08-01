@@ -7,7 +7,8 @@ import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import "./style.scss";
 
 function AddProdcut({
-  setCollenctionName,
+  emptyFields,
+  error,
   title,
   setTitle,
   price,
@@ -30,18 +31,8 @@ function AddProdcut({
 }) {
   return (
     <div className="add-product">
+      {error && <div className="error">{error}</div>}
       <form onSubmit={(e) => e.preventDefault()} className="add-product-form">
-        <div className="product-type">
-          <select name="" id="" onClick={({ target }) => setCollenctionName(target.value)}>
-            <option value="" disabled>
-              Choose Collection
-            </option>
-            <option value="products">All Products</option>
-            <option value="newArrival">New Arrival</option>
-            <option value="hotDeals">Hot Deals</option>
-          </select>
-        </div>
-
         <div className="product-input">
           <label htmlFor="product-title">Product Name</label>
           <input
@@ -50,6 +41,7 @@ function AddProdcut({
             placeholder="Product name"
             value={title}
             onChange={({ target }) => setTitle(target.value)}
+            className={emptyFields.includes("productName") ? "error" : ""}
           />
         </div>
 
@@ -61,6 +53,7 @@ function AddProdcut({
             placeholder="price"
             value={price}
             onChange={({ target }) => setPrice(target.value)}
+            className={emptyFields.includes("price") ? "error" : ""}
           />
         </div>
 
@@ -72,6 +65,7 @@ function AddProdcut({
             placeholder="stock"
             value={stock}
             onChange={({ target }) => setStock(target.value)}
+            className={emptyFields.includes("stock") ? "error" : ""}
           />
         </div>
 
@@ -83,6 +77,7 @@ function AddProdcut({
             placeholder="image url"
             value={thumbnail}
             onChange={({ target }) => setThumbnail(target.value)}
+            className={emptyFields.includes("productThumbnail") ? "error" : ""}
           />
         </div>
 
@@ -94,6 +89,7 @@ function AddProdcut({
             placeholder="seperate url with a comma"
             value={image}
             onChange={({ target }) => setImage(target.value)}
+            className={emptyFields.includes("productImages") ? "error" : ""}
           />
         </div>
 
@@ -105,6 +101,7 @@ function AddProdcut({
             placeholder="seperate categories with a comma ex: men, jeans"
             value={productCategory}
             onChange={({ target }) => setproductCategory(target.value)}
+            className={emptyFields.includes("productCategory") ? "error" : ""}
           />
         </div>
 
@@ -116,6 +113,7 @@ function AddProdcut({
             placeholder="seperate colors with a comma ex: white, black"
             value={colors}
             onChange={({ target }) => setColors(target.value)}
+            className={emptyFields.includes("colors") ? "error" : ""}
           />
         </div>
 
@@ -132,6 +130,7 @@ function AddProdcut({
 
         <div className="product-input">
           <label htmlFor="product-description">Description</label>
+          {emptyFields.includes("description") && <span className="desc-error">Add Description</span>}
           <CKEditor
             id="product-description"
             editor={ClassicEditor}

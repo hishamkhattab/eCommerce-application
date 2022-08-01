@@ -1,15 +1,16 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Modal from "../modal";
 import "./style.scss";
 
-function ProductCard({ product, collection }) {
+function ProductCard({ product }) {
   const [mouseEntered, setMouseEntered] = useState(false);
   const [viewDetails, setViewDetails] = useState(false);
 
   const [sizeState, setSizeState] = useState("");
   const [colorState, setColorState] = useState("");
 
-  const { title, price, documentID, thumb, description } = product;
+  const { productName, price, _id, productThumbnail, description, productCategory, size, colors } = product;
 
   return (
     <>
@@ -19,30 +20,30 @@ function ProductCard({ product, collection }) {
         onMouseLeave={() => setMouseEntered(false)}
       >
         <div className="product-img-container">
-          <img src={thumb} alt="prodcut" />
+          <img src={productThumbnail} alt="prodcut" />
           {mouseEntered && (
             <button onClick={() => setViewDetails(true)} className="quick-view">
               Quick View
             </button>
           )}
         </div>
-        <div className="product-info">
-          <h4 className="product-title">{title}</h4>
+        <Link to={`/product/${_id}`} className="product-info">
+          <h4 className="product-title">{productName}</h4>
           <p className="product-price">$ {price}</p>
-        </div>
+        </Link>
       </div>
       {viewDetails && (
         <Modal closeModal={setViewDetails}>
           <div className="modal-product-container">
-            <img src={thumb} alt="" />
+            <img src={productThumbnail} alt="" />
           </div>
           <div className="modal-product-info">
-            <h4 className="title">{title}</h4>
+            <h4 className="title">{productName}</h4>
             <p className="price">$ {price}</p>
             <div className="product-info">
               <p>Category</p>
               <div className="info-contaiiner">
-                {product.productCategory.map((el, idx) => (
+                {productCategory.map((el, idx) => (
                   <span key={idx}>{el}</span>
                 ))}
               </div>
@@ -50,7 +51,7 @@ function ProductCard({ product, collection }) {
             <div className="product-info">
               <p>size</p>
               <div className="info-contaiiner">
-                {product.size.map((el, idx) => (
+                {size.map((el, idx) => (
                   <button onClick={() => setSizeState(el)} key={idx} className={sizeState === el ? "size-active" : ""}>
                     {el}
                   </button>
@@ -60,7 +61,7 @@ function ProductCard({ product, collection }) {
             <div className="product-info">
               <p>Color</p>
               <div className="info-contaiiner">
-                {product.colors.map((el, idx) => (
+                {colors.map((el, idx) => (
                   <button
                     onClick={() => setColorState(el)}
                     key={idx}
@@ -71,8 +72,12 @@ function ProductCard({ product, collection }) {
                 ))}
               </div>
             </div>
-            <button>Add to cart</button>
-            <p>{description}</p>
+            <button className="global-btn">
+              <Link to="/cart">
+                <span>Add To Cart</span>
+              </Link>
+            </button>
+            <p className="desc">{description.split("<p>").join("").split("</p>").join("")}</p>
           </div>
         </Modal>
       )}

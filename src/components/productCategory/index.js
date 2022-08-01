@@ -19,15 +19,15 @@ function ProductCategory() {
           </Link>
         </div>
         <div className="image-container">
-          <img src="/assets/women.jpg" alt="jeans" />
+          <img src="/assets/jeans.jpg" alt="jeans" />
           <Link to="" className="category-link">
             Jeans
           </Link>
         </div>
         <div className="image-container">
-          <img src="/assets/dress.jpg" alt="bottom" />
+          <img src="/assets/accessories.jpg" alt="bottom" />
           <Link to="" className="category-link">
-            Down
+            accessories
           </Link>
         </div>
       </div>

@@ -8,8 +8,8 @@ import { fetchSingleProduct } from "../../store/productSlice";
 import { Loading, ProductContent } from "../../components";
 
 function Productpage() {
-  const { productId, productCollection } = useParams();
-  const { singleProduct, isLoading } = useSelector((state) => state.products);
+  const { productId } = useParams();
+  const { singleProduct, isLoading, error } = useSelector((state) => state.products);
   const dispatch = useDispatch();
 
   const [thumbImg, setThumbImg] = useState("");
@@ -18,11 +18,11 @@ function Productpage() {
   const [qty, setQty] = useState(0);
 
   useEffect(() => {
-    dispatch(fetchSingleProduct({ productId, collectionName: productCollection }));
+    dispatch(fetchSingleProduct({ productId }));
   }, []);
 
   useEffect(() => {
-    setThumbImg(singleProduct.thumb);
+    if (Object.keys(singleProduct).length) setThumbImg(singleProduct.productThumbnail);
   }, [singleProduct]);
 
   return (
@@ -32,7 +32,8 @@ function Productpage() {
           <Loading />
         </div>
       )}
-      {!isLoading && (
+      {error && <p>{error}</p>}
+      {!isLoading && !error && (
         <ProductContent
           product={singleProduct}
           thumbImg={thumbImg}

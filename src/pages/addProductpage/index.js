@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 // reducer
 import { addProduct } from "../../store/productSlice";
@@ -10,45 +10,45 @@ import { AddProdcut } from "../../components";
 import "./style.scss";
 
 function AddProductpage() {
+  const { error, emptyFields, msg } = useSelector((state) => state.products);
   const dispatch = useDispatch();
 
-  const [collectionName, setCollenctionName] = useState("");
-  const [title, setTitle] = useState("");
+  const [productName, setProductName] = useState("");
   const [price, setPrice] = useState(0);
   const [stock, setStock] = useState(0);
-  const [thumbnail, setThumbnail] = useState("");
-  const [image, setImage] = useState("");
+  const [productThumbnail, setProductThumbnail] = useState("");
+  const [productImages, setProductImages] = useState("");
   const [productCategory, setproductCategory] = useState("");
   const [colors, setColors] = useState("");
-  const [sizes, setSizes] = useState("");
-  const [productDesc, setProductDesc] = useState("");
+  const [size, setSize] = useState("");
+  const [description, setDescription] = useState("");
 
   const clearForm = () => {
-    setTitle("");
+    setProductName("");
     setPrice(0);
     setStock(0);
-    setThumbnail("");
-    setImage("");
+    setProductThumbnail("");
+    setProductImages("");
     setproductCategory("");
     setColors("");
-    setSizes("");
-    setProductDesc("");
+    setSize("");
+    setDescription("");
   };
 
   const handleAddProduct = () => {
     const product = {
-      title,
+      productName,
       price,
       stock,
-      thumb: thumbnail,
-      images: image.split(",").map((el) => el.trim()),
-      productCategory: productCategory.split(",").map((el) => el.trim()),
-      colors: colors.split(",").map((el) => el.trim()),
-      size: sizes.split(",").map((el) => el.trim()),
-      description: productDesc,
+      productThumbnail,
+      productImages: productImages ? productImages.split(",").map((el) => el.trim()) : "",
+      productCategory: productCategory ? productCategory.split(",").map((el) => el.trim()) : "",
+      colors: colors ? colors.split(",").map((el) => el.trim()) : "",
+      size: size.split(",").map((el) => el.trim()),
+      description: description.split("<p>").join("").split("</p>").join(""),
     };
 
-    dispatch(addProduct({ product, collectionName }));
+    dispatch(addProduct({ product }));
     clearForm();
   };
 
@@ -56,27 +56,29 @@ function AddProductpage() {
     <div className="add-product-page">
       <div className="title">
         <h3>Add Product</h3>
+        {msg && <div className="success">{msg}</div>}
       </div>
       <AddProdcut
-        setCollenctionName={setCollenctionName}
-        title={title}
-        setTitle={setTitle}
+        emptyFields={emptyFields}
+        error={error}
+        title={productName}
+        setTitle={setProductName}
         price={price}
         setPrice={setPrice}
         stock={stock}
         setStock={setStock}
-        thumbnail={thumbnail}
-        setThumbnail={setThumbnail}
-        image={image}
-        setImage={setImage}
+        thumbnail={productThumbnail}
+        setThumbnail={setProductThumbnail}
+        image={productImages}
+        setImage={setProductImages}
         productCategory={productCategory}
         setproductCategory={setproductCategory}
         colors={colors}
         setColors={setColors}
-        sizes={sizes}
-        setSizes={setSizes}
-        productDesc={productDesc}
-        setProductDesc={setProductDesc}
+        sizes={size}
+        setSizes={setSize}
+        productDesc={description}
+        setProductDesc={setDescription}
         handleAdd={handleAddProduct}
       />
     </div>

@@ -36,4 +36,12 @@
       transform: translate(-50%, 0.5rem);
     }
   }
+  .success {
+    padding: 10px;
+    background: #ffefef;
+    border: 1px solid rgb(20, 220, 77);
+    color: rgb(50, 220, 20);
+    border-radius: 4px;
+    margin: 20px 0;
+  }
 }

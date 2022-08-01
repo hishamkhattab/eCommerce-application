@@ -48,7 +48,15 @@ function Header() {
               {showSearch && (
                 <input type="text" value={searchParam} onChange={({ target }) => setSearchParam(target.value)} />
               )}
-              {showSearch && <AiOutlineClose className="close-search" onClick={() => setShowSearch((prev) => !prev)} />}
+              {showSearch && (
+                <AiOutlineClose
+                  className="close-search"
+                  onClick={() => {
+                    setShowSearch((prev) => !prev);
+                    setSearchParam("");
+                  }}
+                />
+              )}
             </li>
           </ul>
 

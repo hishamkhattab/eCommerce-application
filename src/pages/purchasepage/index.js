@@ -8,15 +8,16 @@ import { publishableKey } from "../../strip/config";
 import "./style.scss";
 import { PurchaseForm } from "../../components";
 
-const stripPromise = loadStripe(publishableKey);
+// const stripPromise = loadStripe(publishableKey);
 
 function Purchasepage() {
   return (
-    <Elements stripe={stripPromise}>
-      <div className="purchase-container">
-        <PurchaseForm />
-      </div>
-    </Elements>
+    <h1>hello world</h1>
+    // <Elements stripe={stripPromise}>
+    //   <div className="purchase-container">
+    //     <PurchaseForm />
+    //   </div>
+    // </Elements>
   );
 }
 

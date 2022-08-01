@@ -22,14 +22,14 @@ function ProductContent({
           <img src={thumbImg} alt="product" />
         </div>
         <div className="other-img">
-          {Array.isArray(product.images) &&
-            product.images.map((el, idx) => (
+          {Array.isArray(product.productImages) &&
+            product.productImages.map((el, idx) => (
               <button className="other-img-container" key={idx} onClick={() => setThumbImg(el)}>
                 <img src={el} alt="product" />
               </button>
             ))}
-          {!Array.isArray(product.images) &&
-            Object.values(product.images).map((el, idx) => (
+          {!Array.isArray(product.productImages) &&
+            Object.values(product.productImages).map((el, idx) => (
               <button className="other-img-container" key={idx} onClick={() => setThumbImg(el)}>
                 <img src={el} alt="product" />
               </button>
@@ -39,9 +39,9 @@ function ProductContent({
       <div className="product-details">
         <div className="product-date">
           <span>Created at: </span>
-          <span>{product.createdDate}</span>
+          <span>{product.createdAt}</span>
         </div>
-        <h3 className="product-title">{product.title}</h3>
+        <h3 className="product-title">{product.productName}</h3>
         <p className="product-price">${product.price}</p>
         <p className="product-description">{product.description}</p>
         <div className="product-info">

@@ -1,142 +1,94 @@
 /* eslint-disable no-use-before-define */
 
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import {
-  addDoc,
-  collection,
-  doc,
-  getDoc,
-  where,
-  limit,
-  orderBy,
-  query,
-  setDoc,
-  startAfter,
-  getDocs,
-  deleteDoc,
-} from "firebase/firestore";
-import { act } from "react-dom/test-utils";
-import { auth, db } from "../firestore/utils";
 
-export const addProduct = createAsyncThunk("products/addProduct", async ({ product, collectionName }, APIThunk) => {
+export const addProduct = createAsyncThunk("products/addProduct", async ({ product }, APIThunk) => {
   const { rejectWithValue } = APIThunk;
-
+  let json;
   try {
-    const createdDate = new Date();
-    const productAdminUserUID = auth.currentUser.uid;
-
-    await addDoc(collection(db, collectionName), {
-      ...product,
-      createdDate,
-      productAdminUserUID,
+    const response = await fetch("/api/ecommerce/product", {
+      method: "POST",
+      body: JSON.stringify(product),
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
 
-    return { product, collectionName };
+    json = await response.json();
+
+    if (response.ok) {
+      return "Added successfully";
+    }
+
+    throw Error("Something went wrong!");
+  } catch (error) {
+    // if (json) {
+    // return { error: json.error, empty: json.emptyFields };
+    // }
+    return rejectWithValue({ error: json.error, empty: json.emptyFields });
+  }
+});
+
+export const fetchProducts = createAsyncThunk("products/fetchProducts", async ({ category, page = 0 }, APIThunk) => {
+  const { rejectWithValue } = APIThunk;
+  const url = category ? `/api/ecommerce/products/${category}?page=${page}` : `/api/ecommerce/products?page=${page}`;
+  try {
+    const response = await fetch(url);
+    const json = await response.json();
+
+    if (response.ok) {
+      return json;
+    }
+    throw Error("Something went wrong!");
   } catch (error) {
     return rejectWithValue(error.message);
   }
 });
 
-export const fetchProducts = createAsyncThunk(
-  "products/fetchProducts",
-  async ({ filterType, startAfterDoc, persistsProduct = [], collectionName }, APIThunk) => {
-    const { rejectWithValue } = APIThunk;
+export const deleteProduct = createAsyncThunk("products/deleteProduct", async ({ productId }, APIThunk) => {
+  const { rejectWithValue } = APIThunk;
 
-    const pageSize = 4;
-    let q = query(collection(db, collectionName), orderBy("createdDate", "desc"), limit(pageSize));
-    try {
-      if (filterType)
-        q = query(
-          collection(db, collectionName),
-          where("productCategory", "array-contains", filterType),
-          orderBy("createdDate", "desc"),
-          limit(pageSize)
-        );
-      if (filterType && startAfterDoc) {
-        q = query(
-          collection(db, collectionName),
-          where("productCategory", "array-contains", filterType),
-          orderBy("createdDate", "desc"),
-          startAfter(startAfterDoc),
-          limit(pageSize)
-        );
-      } else if (startAfterDoc) {
-        q = query(
-          collection(db, collectionName),
-          orderBy("createdDate", "desc"),
-          orderBy("createdDate", "desc"),
-          startAfter(startAfterDoc),
-          limit(pageSize)
-        );
-      }
+  try {
+    const response = await fetch(`/api/workouts/${productId}`, {
+      method: "DELETE",
+    });
 
-      let totalCount;
-      let data = [];
-      let queryDoc;
-      await getDocs(q).then((snaphoot) => {
-        totalCount = snaphoot.size;
-        data = [
-          ...persistsProduct,
-          ...snaphoot.docs.map((document) => ({
-            ...document.data(),
-            createdDate: document.data().createdDate.toDate().toDateString(),
-            documentID: document.id,
-          })),
-        ];
-        queryDoc = snaphoot.docs[totalCount - 1];
-      });
+    const json = await response.json();
 
-      return { data, queryDoc, isLastPage: totalCount < 1, collectionName };
-    } catch (error) {
-      return rejectWithValue(error.message);
+    if (response.ok) {
+      return { productId, product: json };
     }
+    throw Error("Could not delete!");
+  } catch (error) {
+    return rejectWithValue(error.message);
   }
-);
+});
 
-export const deleteProduct = createAsyncThunk(
-  "products/deleteProduct",
-  async ({ productId, collectionName }, APIThunk) => {
-    const { rejectWithValue } = APIThunk;
+export const fetchSingleProduct = createAsyncThunk("products/fetchSingleProduct", async ({ productId }, APIThunk) => {
+  const { rejectWithValue } = APIThunk;
 
-    try {
-      const docRef = doc(db, collectionName, productId);
-      await deleteDoc(docRef);
-      return { id: productId, collectionName };
-    } catch (error) {
-      return rejectWithValue(error.message);
+  const url = `/api/ecommerce/product/${productId}`;
+  try {
+    const response = await fetch(url);
+    const json = await response.json();
+
+    if (response.ok) {
+      return json;
     }
+    throw Error("There's no such product!");
+  } catch (error) {
+    return rejectWithValue(error.message);
   }
-);
-
-export const fetchSingleProduct = createAsyncThunk(
-  "products/fetchSingleProduct",
-  async ({ productId, collectionName }, APIThunk) => {
-    const { rejectWithValue } = APIThunk;
-
-    const docRef = doc(db, collectionName, productId);
-    try {
-      const snapshot = await getDoc(docRef);
-
-      if (snapshot.exists) {
-        return {
-          ...snapshot.data(),
-          documentID: productId,
-          createdDate: snapshot.data().createdDate.toDate().toDateString(),
-        };
-      }
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
+});
 
 const initialState = {
   isLoading: true,
-  products: {},
-  hotDeals: {},
-  newArrival: {},
+  products: [],
+  deletedProduct: {},
   singleProduct: {},
   error: null,
+  emptyFields: [],
+  msg: null,
 };
 
 export const productSlice = createSlice({
@@ -148,30 +100,14 @@ export const productSlice = createSlice({
     });
     builder.addCase(addProduct.fulfilled, (state, action) => {
       state.isLoading = false;
-      const { product, collectionName } = action.payload;
-      switch (collectionName) {
-        case "products":
-          state.products = { ...state.products, data: [product, ...state.products.data] };
-          state.isLoading = false;
-          break;
-        case "hotDeals":
-          state.hotDeals = { ...state.hotDeals, data: [product, ...state.hotDeals.data] };
-          state.isLoading = false;
-          break;
-        case "newArrival":
-          state.products = { ...state.newArrival, data: [product, ...state.newArrival.data] };
-          state.isLoading = false;
-          break;
-        default:
-          state.isLoading = false;
-      }
+      state.msg = action.payload;
+      state.error = null;
+      state.emptyFields = [];
     });
     builder.addCase(addProduct.rejected, (state, action) => {
       state.isLoading = false;
-      state.products = {};
-      state.hotDeals = {};
-      state.newArrival = {};
-      state.error = action.payload;
+      state.error = action.payload.error;
+      state.emptyFields = action.payload.empty;
     });
 
     builder.addCase(fetchProducts.pending, (state) => {
@@ -180,28 +116,11 @@ export const productSlice = createSlice({
     });
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
       state.isLoading = false;
-
-      const { data, queryDoc, isLastPage, collectionName } = action.payload;
-      switch (collectionName) {
-        case "products":
-          state.products = { data, queryDoc, isLastPage };
-          break;
-        case "hotDeals":
-          state.hotDeals = { data, queryDoc, isLastPage };
-
-          break;
-        case "newArrival":
-          state.newArrival = { data, queryDoc, isLastPage };
-
-          break;
-        default:
-      }
+      state.products = action.payload;
     });
     builder.addCase(fetchProducts.rejected, (state, action) => {
       state.isLoading = false;
-      state.products = {};
-      state.hotDeals = {};
-      state.newArrival = {};
+      state.products = [];
       state.error = action.payload;
     });
 
@@ -210,36 +129,14 @@ export const productSlice = createSlice({
     });
     builder.addCase(deleteProduct.fulfilled, (state, action) => {
       state.isLoading = false;
-      const { collectionName, id } = action.payload;
-      switch (collectionName) {
-        case "products":
-          state.products = {
-            ...state.products,
-            data: state.products.data.filter((el) => el.documentID !== id),
-          };
-          break;
-        case "hotDeals":
-          state.hotDeals = {
-            ...state.hotDeals,
-            data: state.hotDeals.data.filter((el) => el.documentID !== id),
-          };
-
-          break;
-        case "newArrival":
-          state.newArrival = {
-            ...state.newArrival,
-            data: state.newArrival.data.filter((el) => el.documentID !== id),
-          };
-
-          break;
-        default:
-      }
+      const { productId, product } = action.payload;
+      state.products = state.products.filter((item) => item._id !== productId);
+      state.deletedProduct = product;
     });
     builder.addCase(deleteProduct.rejected, (state, action) => {
       state.isLoading = false;
       state.products = {};
-      state.hotDeals = {};
-      state.newArrival = {};
+      state.deletedProduct = {};
       state.error = action.payload;
     });
 
@@ -252,9 +149,7 @@ export const productSlice = createSlice({
     });
     builder.addCase(fetchSingleProduct.rejected, (state, action) => {
       state.isLoading = false;
-      state.products = {};
-      state.hotDeals = {};
-      state.newArrival = {};
+      state.singleProduct = {};
       state.error = action.payload;
     });
   },

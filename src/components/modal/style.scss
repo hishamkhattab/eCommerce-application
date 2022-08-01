@@ -1,24 +1,21 @@
 .modal-details {
   position: absolute;
-  z-index: 100000;
-  background-color: rgba(0, 0, 0, 0.6);
-  inset: 0;
+  background-color: rgba(255, 255, 255, 0.8);
+  width: 100%;
+  left: 0;
+  top: 100%;
   color: #fff;
   z-index: 1000;
   display: flex;
   justify-content: center;
-  align-items: stretch;
-
-  &:target {
-    visibility: visible;
-    display: block;
-  }
+  align-items: center;
 
   .modal-container {
+    border: 1px solid #212121;
     background-color: #fff;
     margin-top: 30vh;
     padding: 45px;
-    max-height: 190vh;
+    max-height: 600px;
     max-width: 1200px;
     position: relative;
     display: flex;
@@ -35,14 +32,12 @@
       padding: 10px;
     }
 
-    .modal-product-container,
-    .modal-product-info {
-      flex: 1;
-    }
-
-    .modal-product-container img {
-      width: 100%;
-      height: 100%;
+    .modal-product-container {
+      height: 80%;
+      img {
+        width: 100%;
+        height: 100%;
+      }
     }
 
     .modal-product-info {
@@ -55,56 +50,23 @@
         font-size: 25px;
       }
 
-      p {
+      .price {
         margin-bottom: 25px;
-        text-align: left;
-        margin-left: 50px;
+        text-align: center;
         color: #212121;
         font-size: 15px;
       }
 
-      .product-info {
-        font-size: 1.2rem;
-        margin-left: 1.2rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        p {
-          text-transform: uppercase;
-          font-size: 1.5em;
-          font-weight: 600;
-        }
-        .info-contaiiner {
-          display: flex;
-          margin: 1rem 0;
-          button,
-          span {
-            margin: 0 0.5rem;
-            place-items: center;
-            display: grid;
-            width: max-content;
-            font-weight: 600;
-            text-transform: capitalize;
-            border-radius: 5px;
-            background-color: #64595958;
-            color: #333;
-            font-size: 1rem;
-          }
-          span {
-            padding: 0.5rem;
-            border: 1px solid #333;
-          }
-          button {
-            cursor: pointer;
-            outline: none;
-            border: 1px solid transparent;
-
-            &.size-active {
-              border: 1px solid #333;
-            }
-          }
-        }
+      .global-btn {
+        margin-top: 25px;
+      }
+      .desc {
+        margin-top: 25px;
+        text-align: center;
+        color: #212121;
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 1.4;
       }
     }
   }

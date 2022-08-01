@@ -9,12 +9,11 @@ import { fetchProducts } from "../../store/productSlice";
 import "./style.scss";
 
 function Homepage() {
-  const { isLoading, hotDeals, newArrival } = useSelector((state) => state.products);
+  const { isLoading, products } = useSelector((state) => state.products);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchProducts({ collectionName: "hotDeals" }));
-    dispatch(fetchProducts({ collectionName: "newArrival" }));
+    dispatch(fetchProducts({}));
   }, []);
 
   return (
@@ -22,29 +21,20 @@ function Homepage() {
       <HomeDirectory />
 
       <div className="product-categories">
-        <CategoryCard image="/assets/summer.jpg" title="top" />
-        <CategoryCard image="/assets/winter.jpg" title="top" />
-        <CategoryCard image="/assets/dress.jpg" title="top" />
-        <CategoryCard image="/assets/women.jpg" title="top" />
+        <CategoryCard image="/assets/summer.jpg" title="New Arrival" />
+        <CategoryCard image="/assets/winter.jpg" title="Hot Deals" />
+        <CategoryCard image="/assets/dress.jpg" title="Big sales" />
+        <CategoryCard image="/assets/women.jpg" title="Summer Vibe" />
       </div>
 
       <div className="homepage-content">
         <section className="main-section">
-          <h2>New Arrival</h2>
           <div className="product-section">
             <div className="slide-show">
               {isLoading && <Loading />}
               {!isLoading &&
-                Object.keys(newArrival).length > 0 &&
-                newArrival.data.map((el, idx) => (
-                  <ProductCard key={`${el.productAdminUserUID}-${idx}`} product={el} collection="newArrival" />
-                ))}
-              {isLoading && <Loading />}
-              {!isLoading &&
-                Object.keys(hotDeals).length > 0 &&
-                hotDeals.data.map((el, idx) => (
-                  <ProductCard key={`${el.productAdminUserUID}-${idx}`} product={el} collection="hotDeals" />
-                ))}
+                products.length > 0 &&
+                products.map((el, idx) => <ProductCard key={el._id} product={el} />)}
             </div>
           </div>
         </section>
