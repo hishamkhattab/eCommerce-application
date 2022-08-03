@@ -32,9 +32,7 @@ function Homepage() {
           <div className="product-section">
             <div className="slide-show">
               {isLoading && <Loading />}
-              {!isLoading &&
-                products.length > 0 &&
-                products.map((el, idx) => <ProductCard key={el._id} product={el} />)}
+              {!isLoading && products.length > 0 && products.map((el) => <ProductCard key={el._id} product={el} />)}
             </div>
           </div>
         </section>

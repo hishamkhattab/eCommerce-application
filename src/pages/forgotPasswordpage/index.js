@@ -8,7 +8,7 @@ import { ResetPassword } from "../../components";
 import { FormLayout, Button } from "../../layout";
 
 // reducer
-import { resetPassword } from "../../store/userSlice";
+// import { resetPassword } from "../../store/userSlice";
 
 // styles
 import "./style.scss";
@@ -22,7 +22,7 @@ function ForgotPassword() {
 
   const handleReset = () => {
     if (email) {
-      dispatch(resetPassword(email));
+      // dispatch(resetPassword(email));
     }
   };
 

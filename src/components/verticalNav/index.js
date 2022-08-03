@@ -19,8 +19,16 @@ function VerticalNav() {
         <p>{/* <span>Created at:</span> {currentUser.createdDate} */}</p>
       </div>
       <div className="links">
-        <Link to="/admin/addProduct">Add Product</Link>
-        <Link to="/admin/showProducts">Show Products</Link>
+        <button className="global-btn">
+          <Link to="/admin/addProduct">
+            <span>Add Product</span>
+          </Link>
+        </button>
+        <button className="global-btn">
+          <Link to="/admin/showProducts">
+            <span>Show admin Products</span>
+          </Link>
+        </button>
       </div>
       {/* <div className="users-list">
         <p className="user-title">Users:</p>

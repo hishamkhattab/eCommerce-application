@@ -2,7 +2,7 @@
   padding-bottom: 5px;
   box-shadow: 0px -8px 10px -3px rgba(255, 255, 255, 0.66);
   position: relative;
-  background-color: #ecb390;
+  background-color: #e0c2b0;
 
   svg {
     cursor: pointer;
@@ -22,6 +22,13 @@
     top: 0;
     right: 0;
     border-bottom-left-radius: 15px;
+
+    a {
+      color: #fff;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
   }
 
   .main-item {
@@ -84,36 +91,52 @@
 
     .sign-logo {
       display: flex;
-      justify-content: space-around;
-      align-self: center;
+      flex-direction: column;
       width: 100px;
 
-      svg {
-        color: #fcf8e8;
-      }
-
-      .shopping-cart-container {
-        position: relative;
-
-        .shopping-cart {
-          font-size: 2.5rem;
+      .logos {
+        display: flex;
+        justify-content: space-around;
+        align-self: center;
+        width: 100%;
+        svg {
+          color: #fcf8e8;
         }
 
-        span {
-          content: '';
-          position: absolute;
-          width: 20px;
-          height: 20px;
-          border-radius: 50%;
-          background-color: firebrick;
-          top: calc(-100% / 2);
-          left: 50%;
-          transform: translateX(-50%);
-          display: grid;
-          place-items: center;
-          font-size: 1rem;
-          font-weight: 600;
-          color: #fff;
+        .shopping-cart-container {
+          position: relative;
+
+          .shopping-cart {
+            font-size: 2.5rem;
+          }
+
+          span {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: firebrick;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: grid;
+            place-items: center;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+          }
+        }
+      }
+
+      .user-name {
+        width: 100%;
+        color: #fcf8e8;
+        font-weight: 400;
+        margin-bottom: 1rem;
+        .name {
+          text-transform: uppercase;
+          font-weight: 700;
         }
       }
     }

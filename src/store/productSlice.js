@@ -22,9 +22,6 @@ export const addProduct = createAsyncThunk("products/addProduct", async ({ produ
 
     throw Error("Something went wrong!");
   } catch (error) {
-    // if (json) {
-    // return { error: json.error, empty: json.emptyFields };
-    // }
     return rejectWithValue({ error: json.error, empty: json.emptyFields });
   }
 });
@@ -49,7 +46,7 @@ export const deleteProduct = createAsyncThunk("products/deleteProduct", async ({
   const { rejectWithValue } = APIThunk;
 
   try {
-    const response = await fetch(`/api/workouts/${productId}`, {
+    const response = await fetch(`/api/ecommerce/product/${productId}`, {
       method: "DELETE",
     });
 

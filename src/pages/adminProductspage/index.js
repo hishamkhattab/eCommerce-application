@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { AiOutlineDoubleRight } from "react-icons/ai";
@@ -6,23 +6,32 @@ import { AiOutlineDoubleRight } from "react-icons/ai";
 import { ProductCard } from "../../components";
 
 // reducer
-import { fetchProducts } from "../../store/productSlice";
+import { fetchProducts, deleteProduct } from "../../store/productSlice";
 import "./style.scss";
 
 function AdminProductspage() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { products, isLoading } = useSelector((state) => state.products);
   const dispatch = useDispatch();
-  const page = 0;
+  const page = searchParams.get("page");
+  const [productsData, setProductsData] = useState([]);
 
   useEffect(() => {
-    dispatch(fetchProducts({ collectionName: "products" }));
+    dispatch(fetchProducts({}));
+    setSearchParams({ page: 0 });
+    setProductsData((prevState) => prevState.concat(products));
   }, []);
 
   const handleLoadMore = () => {
-    const p = parseInt(searchParams.get("page")) + 1;
+    const p = parseInt(page) + 1;
     setSearchParams({ page: p });
-    dispatch(fetchProducts({ p }));
+    dispatch(fetchProducts({ page: p }));
+    setProductsData((prevState) => prevState.concat(products));
+  };
+
+  const handleDelete = (id) => {
+    dispatch(deleteProduct({ productId: id }));
+    setProductsData((prevState) => prevState.filter((item) => item._id !== id));
   };
 
   return (
@@ -32,10 +41,13 @@ function AdminProductspage() {
       </div>
 
       <div className="products-container">
-        {!isLoading && products.map((el) => <ProductCard product={el} key={el._id} />)}
+        {!isLoading &&
+          productsData.map((el) => (
+            <ProductCard product={el} key={el._id} showDelete handleDelete={(id) => handleDelete(id)} />
+          ))}
       </div>
       <div className="load-more-btn">
-        {!isLoading && !products.isLastPage && (
+        {!isLoading && products.length >= 8 && (
           <button onClick={handleLoadMore}>
             <span>Load more</span>
             <AiOutlineDoubleRight />

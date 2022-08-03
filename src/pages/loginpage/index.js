@@ -9,7 +9,7 @@ import { Signin } from "../../components";
 import { FormLayout, Button } from "../../layout";
 
 // reducer
-import { signinWithGoogle, signinUser } from "../../store/userSlice";
+import { signinUser } from "../../store/userSlice";
 
 // styles
 import "./style.scss";
@@ -26,7 +26,7 @@ function Loginpage() {
   const navigate = useNavigate();
 
   const handleGoogleSignin = () => {
-    dispatch(signinWithGoogle());
+    // dispatch(signinWithGoogle());
   };
 
   const clearForm = () => {

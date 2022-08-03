@@ -54,8 +54,7 @@ function Registerpage() {
       password === confirmPassword
     ) {
       setIsPassowrdMatch(true);
-      console.log(signupData);
-      dispatch(signupUser(signupData));
+      dispatch(signupUser({ email, password, displayName }));
     }
   };
 

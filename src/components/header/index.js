@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useInView } from "react-intersection-observer";
 
@@ -22,6 +22,7 @@ const mapppedState = (state) => ({
 });
 
 function Header() {
+  const location = useLocation();
   const { currentUser, cartTotal } = useSelector(mapppedState);
   const dispatch = useDispatch();
 
@@ -31,16 +32,15 @@ function Header() {
   const [showSearch, setShowSearch] = useState(false);
   const [ref, inView] = useInView();
 
-  console.log(inView);
   return (
     <nav className="header" ref={ref}>
-      {inView && isAdmin && (
+      {(inView || location.pathname !== "/") && isAdmin && (
         <div className="admin">
           <Link to="/admin">Admin</Link>
         </div>
       )}
 
-      {inView && (
+      {(inView || location.pathname !== "/") && (
         <div className="main-item">
           <ul className="search">
             <li>
@@ -69,58 +69,64 @@ function Header() {
           </ul>
 
           <ul className="sign-logo">
-            <li className="shopping-cart-container">
-              <Link to="/cart">
-                <AiOutlineShopping className="shopping-cart" />
-                <span>{cartTotal}</span>
-              </Link>
-            </li>
-            <li>
-              {Object.keys(currentUser).length === 0 && (
-                <Link to="/login">
-                  <AiOutlineLogin />
-                </Link>
-              )}
-              {currentUser?.displayName && <AiOutlineUser />}
-            </li>
-            <li>
+            <li className="user-name">
               {currentUser?.displayName && (
-                <Link to="" onClick={() => dispatch(signoutUser())}>
-                  <AiOutlineLogout />
-                </Link>
+                <p>
+                  Hi,<span className="name">{currentUser?.displayName}</span>
+                </p>
               )}
             </li>
+            <div className="logos">
+              <li className="shopping-cart-container">
+                <Link to="/cart">
+                  <AiOutlineShopping className="shopping-cart" />
+                  <span>{cartTotal}</span>
+                </Link>
+              </li>
+              <li>
+                {currentUser?.displayName && (
+                  <Link to="" onClick={() => dispatch(signoutUser())}>
+                    <AiOutlineLogout />
+                  </Link>
+                )}
+                {Object.keys(currentUser).length === 0 && (
+                  <Link to="/login">
+                    <AiOutlineLogin />
+                  </Link>
+                )}
+              </li>
+            </div>
           </ul>
         </div>
       )}
 
-      <ul className={inView ? "nav-links" : "nav-links sticky"}>
+      <ul className={inView || location.pathname !== "/" ? "nav-links" : "nav-links sticky"}>
         <li>
-          <Link to="/">women</Link>
+          <Link to="/category/women">women</Link>
         </li>
 
         <li>
-          <Link to="/">men</Link>
+          <Link to="/category/women">men</Link>
         </li>
 
         <li>
-          <Link to="/">top</Link>
+          <Link to="/category/top">top</Link>
         </li>
 
         <li>
-          <Link to="/">down</Link>
+          <Link to="/category/bottom">bottom</Link>
         </li>
 
         <li>
-          <Link to="/">jeans</Link>
+          <Link to="/category/jeans">jeans</Link>
         </li>
 
         <li>
-          <Link to="/">Summer</Link>
+          <Link to="/category/summer">Summer</Link>
         </li>
 
         <li>
-          <Link to="/">winter</Link>
+          <Link to="/category/winter">winter</Link>
         </li>
       </ul>
     </nav>

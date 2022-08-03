@@ -14,38 +14,38 @@ function ProductCategory() {
         </div>
         <div className="image-container">
           <img src="/assets/top.png" alt="top" />
-          <Link to="" className="category-link">
+          <Link to="/category/top" className="category-link">
             Top
           </Link>
         </div>
         <div className="image-container">
           <img src="/assets/jeans.jpg" alt="jeans" />
-          <Link to="" className="category-link">
+          <Link to="/category/jeans" className="category-link">
             Jeans
           </Link>
         </div>
         <div className="image-container">
-          <img src="/assets/accessories.jpg" alt="bottom" />
-          <Link to="" className="category-link">
+          <img src="/assets/accessories.jpg" alt="accessories" />
+          <Link to="/category/accessories" className="category-link">
             accessories
           </Link>
         </div>
       </div>
       <div className="image-container">
         <img src="/assets/summer.jpg" alt="summer" />
-        <Link to="" className="category-link">
+        <Link to="/category/summer" className="category-link">
           Hot summer
         </Link>
       </div>
       <div className="image-container">
         <img src="/assets/winter.jpg" alt="winter" />
-        <Link to="" className="category-link">
+        <Link to="/category/winter" className="category-link">
           Winter
         </Link>
       </div>
       <div className="image-container">
         <img src="/assets/sale.jpg" alt="sale" />
-        <Link to="" className="category-link">
+        <Link to="/category/sales" className="category-link">
           sales
         </Link>
       </div>

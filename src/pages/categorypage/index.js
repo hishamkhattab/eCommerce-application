@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useParams, useSearchParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProducts } from "../../store/productSlice";
 import "./style.scss";
@@ -8,21 +8,27 @@ import { ProductCard, LoadMoreButton, Loading } from "../../components";
 function Categorypage() {
   const { products, isLoading } = useSelector((state) => state.products);
   const dispatch = useDispatch();
+
+  const [searchParams, setSearchParams] = useSearchParams();
   const { type } = useParams();
 
+  const page = searchParams.get("page");
+  const [productsData, setProductsData] = useState([]);
+
   useEffect(() => {
-    dispatch(fetchProducts({ filterType: type, collectionName: "products" }));
-  }, []);
+    setProductsData([]);
+    setSearchParams({ page: 0 });
+    dispatch(fetchProducts({ category: type, page: 0 }));
+    if (products) {
+      setProductsData((prevState) => prevState.concat(products));
+    }
+  }, [type]);
 
   const handleLoadMore = () => {
-    dispatch(
-      fetchProducts({
-        filterType: type,
-        collectionName: "products",
-        startAfterDoc: products.queryDoc,
-        persistsProduct: products.data,
-      })
-    );
+    const p = parseInt(page) + 1;
+    setSearchParams({ page: p });
+    dispatch(fetchProducts({ page: p }));
+    setProductsData((prevState) => prevState.concat(products));
   };
 
   return (
@@ -31,12 +37,10 @@ function Categorypage() {
         <h2>{type}</h2>
         <div className="product-section">
           {isLoading && <Loading />}
-          {!isLoading &&
-            Object.keys(products).length > 0 &&
-            products.data.map((el) => <ProductCard key={el.documentID} product={el} />)}
+          {!isLoading && productsData.length > 0 && productsData.map((el) => <ProductCard key={el._id} product={el} />)}
         </div>
       </div>
-      {!products.isLastPage && <LoadMoreButton handleLoadMore={handleLoadMore} />}
+      {products.length >= 8 && <LoadMoreButton handleLoadMore={handleLoadMore} />}
     </div>
   );
 }
