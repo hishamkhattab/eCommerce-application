@@ -1,26 +1,24 @@
 .modal {
-  position: fixed;
-  inset: 0; /* inset sets all 4 values (top right bottom left) much like how we set padding, margin etc., */
-  background-color: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.8);
+  width: 100%;
+  left: 0;
+  top: 100%;
+  color: #fff;
+  z-index: 1000;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  transition: all 0.3s ease-in-out;
-  overflow: hidden;
-  z-index: 999;
-  padding: 40px 20px 20px;
+  align-items: center;
 
   .modal-container {
-    padding: 2em;
-    width: 70%;
-    height: 90%;
     border: 1px solid #212121;
     background-color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    margin-top: 30vh;
+    padding: 45px;
+    max-height: 600px;
+    max-width: 1200px;
     position: relative;
+    display: flex;
 
     .close {
       position: absolute;
@@ -36,7 +34,6 @@
 
     .modal-product-container {
       height: 80%;
-      max-width: 50%;
       img {
         width: 100%;
         height: 100%;

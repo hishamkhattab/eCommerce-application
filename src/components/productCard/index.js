@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { deleteProduct } from "../../store/productSlice";
+
 import Modal from "../modal";
 import "./style.scss";
 
@@ -9,7 +8,6 @@ function ProductCard({ product, showDelete, handleDelete }) {
   const [mouseEntered, setMouseEntered] = useState(false);
   const [viewDetails, setViewDetails] = useState(false);
 
-  const dispatch = useDispatch();
   const [sizeState, setSizeState] = useState("");
   const [colorState, setColorState] = useState("");
 

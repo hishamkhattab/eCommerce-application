@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
 // reducer
 import { addProduct } from "../../store/productSlice";
 
@@ -9,9 +9,21 @@ import { AddProdcut } from "../../components";
 
 import "./style.scss";
 
+const mapState = (state) => ({
+  error: state.products.error,
+  emptyFields: state.products.emptyFields,
+  msg: state.products.msg,
+  productAdminID: state.users.currentUser.userID,
+});
+
 function AddProductpage() {
-  const { error, emptyFields, msg } = useSelector((state) => state.products);
+  const { error, emptyFields, msg, productAdminID } = useSelector(mapState);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (msg === "Added successfully") navigate("/admin");
+  }, [msg]);
 
   const [productName, setProductName] = useState("");
   const [price, setPrice] = useState(0);
@@ -46,10 +58,11 @@ function AddProductpage() {
       colors: colors ? colors.split(",").map((el) => el.trim()) : "",
       size: size.split(",").map((el) => el.trim()),
       description: description.split("<p>").join("").split("</p>").join(""),
+      productAdminID,
     };
 
     dispatch(addProduct({ product }));
-    clearForm();
+    // clearForm();
   };
 
   return (

@@ -26,21 +26,34 @@ export const addProduct = createAsyncThunk("products/addProduct", async ({ produ
   }
 });
 
-export const fetchProducts = createAsyncThunk("products/fetchProducts", async ({ category, page = 0 }, APIThunk) => {
-  const { rejectWithValue } = APIThunk;
-  const url = category ? `/api/ecommerce/products/${category}?page=${page}` : `/api/ecommerce/products?page=${page}`;
-  try {
-    const response = await fetch(url);
-    const json = await response.json();
+export const fetchProducts = createAsyncThunk(
+  "products/fetchProducts",
+  async ({ category, page = 0, oldData = [], adminID }, APIThunk) => {
+    const { rejectWithValue } = APIThunk;
 
-    if (response.ok) {
-      return json;
+    // eslint-disable-next-line no-nested-ternary
+    const url = category
+      ? `/api/ecommerce/products/${category}?page=${page}`
+      : adminID
+      ? `/api/ecommerce/products/user/${adminID}?page=${page}`
+      : `/api/ecommerce/products?page=${page}`;
+    // const url = category ? `/api/ecommerce/products/${category}?page=${page}` : `/api/ecommerce/products?page=${page}`;
+    try {
+      const response = await fetch(url);
+      const json = await response.json();
+
+      if (response.ok) {
+        if (oldData.length > 0) {
+          return [...oldData, ...json];
+        }
+        return json;
+      }
+      throw Error("Something went wrong!");
+    } catch (error) {
+      return rejectWithValue(error.message);
     }
-    throw Error("Something went wrong!");
-  } catch (error) {
-    return rejectWithValue(error.message);
   }
-});
+);
 
 export const deleteProduct = createAsyncThunk("products/deleteProduct", async ({ productId }, APIThunk) => {
   const { rejectWithValue } = APIThunk;
@@ -81,7 +94,7 @@ export const fetchSingleProduct = createAsyncThunk("products/fetchSingleProduct"
 const initialState = {
   isLoading: true,
   products: [],
-  deletedProduct: {},
+  deletedProduct: null,
   singleProduct: {},
   error: null,
   emptyFields: [],
@@ -105,6 +118,7 @@ export const productSlice = createSlice({
       state.isLoading = false;
       state.error = action.payload.error;
       state.emptyFields = action.payload.empty;
+      state.msg = null;
     });
 
     builder.addCase(fetchProducts.pending, (state) => {
@@ -114,11 +128,13 @@ export const productSlice = createSlice({
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
       state.isLoading = false;
       state.products = action.payload;
+      state.msg = null;
     });
     builder.addCase(fetchProducts.rejected, (state, action) => {
       state.isLoading = false;
       state.products = [];
       state.error = action.payload;
+      state.msg = null;
     });
 
     builder.addCase(deleteProduct.pending, (state) => {
@@ -129,12 +145,14 @@ export const productSlice = createSlice({
       const { productId, product } = action.payload;
       state.products = state.products.filter((item) => item._id !== productId);
       state.deletedProduct = product;
+      state.msg = null;
     });
     builder.addCase(deleteProduct.rejected, (state, action) => {
       state.isLoading = false;
       state.products = {};
       state.deletedProduct = {};
       state.error = action.payload;
+      state.msg = null;
     });
 
     builder.addCase(fetchSingleProduct.pending, (state) => {
@@ -143,11 +161,13 @@ export const productSlice = createSlice({
     builder.addCase(fetchSingleProduct.fulfilled, (state, action) => {
       state.isLoading = false;
       state.singleProduct = action.payload;
+      state.msg = null;
     });
     builder.addCase(fetchSingleProduct.rejected, (state, action) => {
       state.isLoading = false;
       state.singleProduct = {};
       state.error = action.payload;
+      state.msg = null;
     });
   },
 });
