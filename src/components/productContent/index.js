@@ -14,6 +14,7 @@ function ProductContent({
   setColorState,
   setQty,
   setThumbImg,
+  handleAddToCart,
 }) {
   return (
     <div className="product-page">
@@ -98,10 +99,8 @@ function ProductContent({
           </div>
         )}
         <div className="product-control">
-          <button className="global-btn">
-            <Link to="/cart">
-              <span>Add To Cart</span>
-            </Link>
+          <button className="global-btn" onClick={() => handleAddToCart(product)}>
+            <span>Add To Cart</span>
           </button>
         </div>
       </div>

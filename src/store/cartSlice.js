@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 // helper function
 
 // check if item exist in the cart
-const existingContent = (prevItems, nextItem) => prevItems.find((item) => item.documentID === nextItem.documentID);
+const existingContent = (prevItems, nextItem) => prevItems.find((item) => item._id === nextItem._id);
 
 // add item to the cart
 const handleAddToCart = (prevItems, nextItems) => {
@@ -12,7 +12,7 @@ const handleAddToCart = (prevItems, nextItems) => {
 
   if (isItemExists) {
     return prevItems.map((cartItem) =>
-      cartItem.documentID === nextItems.documentID ? { ...cartItem, qty: cartItem.qty + 1 } : cartItem
+      cartItem._id === nextItems._id ? { ...cartItem, qty: cartItem.qty + 1 } : cartItem
     );
   }
 
@@ -20,26 +20,25 @@ const handleAddToCart = (prevItems, nextItems) => {
     ...prevItems,
     {
       ...nextItems,
-      qty: initialQty,
+      // qty: initialQty,
     },
   ];
 };
 
 // remove item from cart
-const handelRemoveCartItem = (prevItems, nextItem) =>
-  prevItems.filter((item) => item.documentID !== nextItem.documentID);
+const handelRemoveCartItem = (prevItems, nextItem) => prevItems.filter((item) => item._id !== nextItem._id);
 
 // decrease the quantity of an item in cart
 const handleReduceCartItem = (prevItems, nextItem) => {
-  const existingCartItem = prevItems.find((item) => item.documentID === nextItem.documentID);
+  const existingCartItem = prevItems.find((item) => item._id === nextItem._id);
 
   // if the quantity is 1 then remove the item from cart
   if (existingCartItem.qty === 1) {
-    return prevItems.filter((item) => item.documentID !== existingCartItem.documentID);
+    return prevItems.filter((item) => item._id !== existingCartItem._id);
   }
 
   return prevItems.map((cartItem) =>
-    cartItem.documentID === existingCartItem.documentID
+    cartItem._id === existingCartItem._id
       ? {
           ...cartItem,
           qty: cartItem.qty - 1,
@@ -50,12 +49,12 @@ const handleReduceCartItem = (prevItems, nextItem) => {
 
 // increase the quantity of an item in cart
 const handleIncreaseCartItem = (prevItems, nextItem) => {
-  const existingCartItem = prevItems.find((item) => item.documentID === nextItem.documentID);
+  const existingCartItem = prevItems.find((item) => item._id === nextItem._id);
 
   // if there is still stock available
   if (existingCartItem.qty < existingCartItem.stock) {
     return prevItems.map((cartItem) =>
-      cartItem.documentID === existingCartItem.documentID
+      cartItem._id === existingCartItem._id
         ? {
             ...cartItem,
             qty: cartItem.qty + 1,

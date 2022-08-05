@@ -6,4 +6,20 @@
     align-items: center;
     margin: 1em 0;
   }
+
+  .cart-total {
+    border-top: 1px solid #333;
+    padding: 1em 3em;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h4 {
+      font-size: 1.2em;
+      text-transform: uppercase;
+    }
+    p {
+      font-weight: 700;
+    }
+  }
 }

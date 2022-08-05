@@ -107,6 +107,7 @@ export const productSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(addProduct.pending, (state) => {
       state.isLoading = true;
+      state.error = null;
     });
     builder.addCase(addProduct.fulfilled, (state, action) => {
       state.isLoading = false;
@@ -124,11 +125,13 @@ export const productSlice = createSlice({
     builder.addCase(fetchProducts.pending, (state) => {
       state.isLoading = true;
       state.products = [];
+      state.error = null;
     });
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
       state.isLoading = false;
       state.products = action.payload;
       state.msg = null;
+      state.error = null;
     });
     builder.addCase(fetchProducts.rejected, (state, action) => {
       state.isLoading = false;
@@ -139,6 +142,7 @@ export const productSlice = createSlice({
 
     builder.addCase(deleteProduct.pending, (state) => {
       state.isLoading = true;
+      state.error = null;
     });
     builder.addCase(deleteProduct.fulfilled, (state, action) => {
       state.isLoading = false;
@@ -146,6 +150,7 @@ export const productSlice = createSlice({
       state.products = state.products.filter((item) => item._id !== productId);
       state.deletedProduct = product;
       state.msg = null;
+      state.error = null;
     });
     builder.addCase(deleteProduct.rejected, (state, action) => {
       state.isLoading = false;
@@ -157,11 +162,13 @@ export const productSlice = createSlice({
 
     builder.addCase(fetchSingleProduct.pending, (state) => {
       state.isLoading = true;
+      state.error = null;
     });
     builder.addCase(fetchSingleProduct.fulfilled, (state, action) => {
       state.isLoading = false;
       state.singleProduct = action.payload;
       state.msg = null;
+      state.error = null;
     });
     builder.addCase(fetchSingleProduct.rejected, (state, action) => {
       state.isLoading = false;

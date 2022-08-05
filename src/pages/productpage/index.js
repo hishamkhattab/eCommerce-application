@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 
 import "./style.scss";
 import { fetchSingleProduct } from "../../store/productSlice";
+import { addToCart } from "../../store/cartSlice";
 
 import { Loading, ProductContent } from "../../components";
 
@@ -15,7 +16,7 @@ function Productpage() {
   const [thumbImg, setThumbImg] = useState("");
   const [sizeState, setSizeState] = useState("unknow");
   const [colorState, setColorState] = useState("unknow");
-  const [qty, setQty] = useState(0);
+  const [qty, setQty] = useState(1);
 
   useEffect(() => {
     dispatch(fetchSingleProduct({ productId }));
@@ -24,6 +25,23 @@ function Productpage() {
   useEffect(() => {
     if (Object.keys(singleProduct).length) setThumbImg(singleProduct.productThumbnail);
   }, [singleProduct]);
+
+  const handleAddToCart = (item) => {
+    if (colorState || qty > 0) {
+      const cartItem = {
+        _id: item._id,
+        productName: item.productName,
+        price: item.price,
+        productThumbnail: item.productThumbnail,
+        productAdminID: item.productAdminID,
+        color: colorState,
+        size: sizeState,
+        stock: item.stock,
+        qty,
+      };
+      dispatch(addToCart(cartItem));
+    }
+  };
 
   return (
     <div className="main-page-container">
@@ -44,6 +62,7 @@ function Productpage() {
           setColorState={setColorState}
           setQty={setQty}
           setThumbImg={setThumbImg}
+          handleAddToCart={(p) => handleAddToCart(p)}
         />
       )}
     </div>

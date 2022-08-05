@@ -106,7 +106,7 @@ function Header() {
         </li>
 
         <li>
-          <Link to="/category/women">men</Link>
+          <Link to="/category/men">men</Link>
         </li>
 
         <li>

@@ -28,17 +28,24 @@ function Cartpage() {
         <h2>Cart</h2>
       </div>
 
-      <div className="cart-content" />
-      {cart.map((product) => (
-        <ProductCart
-          key={product.documentID}
-          product={product}
-          reduceQty={handleReduceQty}
-          increseQty={handleIncreaseQty}
-          removeProduct={handleRemoveProduct}
-        />
-      ))}
+      <div className="cart-content">
+        {cart.map((product) => (
+          <ProductCart
+            key={product._id}
+            product={product}
+            reduceQty={handleReduceQty}
+            increseQty={handleIncreaseQty}
+            removeProduct={handleRemoveProduct}
+          />
+        ))}
+      </div>
 
+      {cart.length > 0 && (
+        <div className="cart-total">
+          <h4>Total</h4>
+          <p>$ {cart.reduce((acc, cur) => acc + cur.price * cur.qty, 0)}</p>
+        </div>
+      )}
       {cart.length > 0 && (
         <div className="cart-control">
           <button className="global-btn" onClick={() => {}}>

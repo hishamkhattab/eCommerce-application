@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-
+import { IoMdArrowDropup, IoMdArrowDropdown } from "react-icons/io";
+import { addToCart } from "../../store/cartSlice";
 import Modal from "../modal";
 import "./style.scss";
 
@@ -10,8 +12,29 @@ function ProductCard({ product, showDelete, handleDelete }) {
 
   const [sizeState, setSizeState] = useState("");
   const [colorState, setColorState] = useState("");
+  const [qty, setQty] = useState(1);
 
   const { productName, price, _id, productThumbnail, description, productCategory, size, colors } = product;
+
+  const dispatch = useDispatch();
+
+  const handleAddToCart = (item) => {
+    if (colorState || qty > 0) {
+      const cartItem = {
+        _id: item._id,
+        productName: item.productName,
+        price: item.price,
+        productThumbnail: item.productThumbnail,
+        productAdminID: item.productAdminID,
+        color: colorState,
+        size: sizeState,
+        stock: item.stock,
+        qty,
+      };
+      dispatch(addToCart(cartItem));
+      setViewDetails(false);
+    }
+  };
 
   return (
     <>
@@ -78,10 +101,33 @@ function ProductCard({ product, showDelete, handleDelete }) {
                 ))}
               </div>
             </div>
-            <button className="global-btn">
-              <Link to="/cart">
-                <span>Add To Cart</span>
-              </Link>
+            {product.stock > 0 && (
+              <div className="product-stock">
+                <span>Quantity</span>
+                <span className="qty">{qty}</span>
+                <div className="control">
+                  <IoMdArrowDropup
+                    className="control-arrow"
+                    onClick={() => {
+                      setQty((prev) => (prev === product.stock ? prev : prev + 1));
+                    }}
+                  />
+                  <IoMdArrowDropdown
+                    className="control-arrow"
+                    onClick={() => {
+                      setQty((prev) => (prev === 0 ? prev : prev - 1));
+                    }}
+                  />
+                </div>
+              </div>
+            )}
+            {product.stock === 0 && (
+              <div className="product-stock out">
+                <span className="out-of-stock">out of stock</span>
+              </div>
+            )}
+            <button className="global-btn" onClick={() => handleAddToCart(product)}>
+              <span>Add To Cart</span>
             </button>
             <p className="desc">{description.split("<p>").join("").split("</p>").join("")}</p>
           </div>

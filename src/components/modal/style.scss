@@ -80,6 +80,42 @@
         }
       }
 
+      .product-stock {
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 1rem;
+        display: flex;
+        width: 50%;
+        border-radius: 5px;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+
+        .control {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          .control-arrow {
+            cursor: pointer;
+          }
+        }
+
+        &.out {
+          background-color: crimson;
+          justify-content: center;
+          color: #fff;
+
+          span {
+            font-weight: 600;
+          }
+        }
+
+        .qty {
+          user-select: none;
+        }
+      }
+
       .price {
         margin: 25px 0;
         text-align: center;

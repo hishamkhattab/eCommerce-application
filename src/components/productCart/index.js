@@ -1,14 +1,26 @@
 import React from "react";
-import { IoMdArrowDropup, IoMdArrowDropdown, IoMdRemove, IoMdCloseCircle } from "react-icons/io";
+import { IoMdArrowDropup, IoMdArrowDropdown, IoMdCloseCircle } from "react-icons/io";
 import "./style.scss";
 
 function ProductCart({ product, reduceQty, increseQty, removeProduct }) {
   return (
     <div className="cart-product">
       <div className="img-container">
-        <img src={product.thumb} alt="" />
+        <img src={product.productThumbnail} alt="" />
       </div>
-      <h6 className="product-name">{product.title}</h6>
+      <div>
+        <h6 className="product-name">{product.productName}</h6>
+        <div className="product-more-info">
+          <p>
+            <span>Color:</span>
+            {product.color}
+          </p>
+          <p>
+            <span>Size: </span>
+            {product.size}
+          </p>
+        </div>
+      </div>
       <p className="product-price">${product.price}</p>
       <div className="product-qty">
         <span>{product.qty}</span>
