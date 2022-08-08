@@ -37,6 +37,9 @@
     align-items: center;
     padding: 10px;
 
+    .drop-list {
+      display: none;
+    }
     .search {
       width: 100px;
 
@@ -111,7 +114,6 @@
           }
 
           span {
-            content: '';
             position: absolute;
             width: 20px;
             height: 20px;
@@ -173,6 +175,128 @@
           border-color: #cee5d0;
         }
       }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    .admin {
+      width: 50%;
+      height: 2em;
+      text-align: center;
+    }
+
+    .main-item {
+      .drop-list {
+        display: block;
+        position: relative;
+
+        .drop-down {
+          background-color: rgba(0, 0, 0, 0.66);
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          width: 200px;
+          padding: 2em;
+          transform: translateY(100%);
+          z-index: 100;
+          border-radius: 5px;
+          color: #fff;
+
+          li {
+            margin-bottom: 1.5rem;
+          }
+
+          .drop-down-search {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            span {
+              text-transform: uppercase;
+            }
+
+            input {
+              position: absolute;
+              width: 145%;
+              font-size: 0.7em;
+              color: #333;
+              padding: 5px 10px;
+              outline: none;
+              border: 0;
+              z-index: 100;
+            }
+
+            .close-search {
+              position: absolute;
+              top: 50%;
+              right: 0;
+              z-index: 101;
+              color: #333;
+              transform: translate(100%, -50%);
+            }
+          }
+
+          .drop-down-user-name {
+            text-align: center;
+            font-size: 1.2em;
+          }
+
+          .drop-down-shopping-cart a {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            justify-content: center;
+
+            span {
+              color: #fff;
+              width: 20px;
+              height: 20px;
+              border-radius: 50%;
+              background-color: firebrick;
+              bottom: -10px;
+              left: 50%;
+              transform: translateX(-50%);
+              display: grid;
+              place-items: center;
+              font-size: 1rem;
+              font-weight: 600;
+            }
+          }
+
+          .drop-down-sign-out a {
+            color: #fff;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            justify-content: center;
+          }
+        }
+      }
+      .search,
+      .sign-logo {
+        display: none;
+      }
+
+      .logo {
+        width: 150px;
+        height: 150px;
+
+        li {
+          width: 100%;
+          height: 100%;
+
+          img {
+            width: 100%;
+            height: 100%;
+          }
+        }
+      }
+    }
+
+    .nav-links {
+      display: none;
     }
   }
 }

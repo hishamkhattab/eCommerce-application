@@ -3,14 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useInView } from "react-intersection-observer";
 
-import {
-  AiOutlineSearch,
-  AiOutlineUser,
-  AiOutlineShopping,
-  AiOutlineClose,
-  AiOutlineLogout,
-  AiOutlineLogin,
-} from "react-icons/ai";
+import { AiOutlineSearch, AiOutlineShopping, AiOutlineClose, AiOutlineLogout, AiOutlineLogin } from "react-icons/ai";
+import { GiHamburgerMenu } from "react-icons/gi";
 import { signoutUser } from "../../store/userSlice";
 import { checkCurrentUserIsAdmin } from "../../utils";
 
@@ -30,6 +24,8 @@ function Header() {
 
   const [searchParam, setSearchParam] = useState("");
   const [showSearch, setShowSearch] = useState(false);
+
+  const [showDropDown, setShowDropDown] = useState(false);
   const [ref, inView] = useInView();
 
   return (
@@ -66,6 +62,61 @@ function Header() {
                 <img src="/assets/Babylon-logos_white.png" alt="logo" />
               </Link>
             </li>
+          </ul>
+
+          <ul className="drop-list">
+            <li>
+              <GiHamburgerMenu onClick={() => setShowDropDown((prev) => !prev)} />
+            </li>
+            {showDropDown && (
+              <div className="drop-down">
+                <ul className="drop-down-list">
+                  <li className="drop-down-search">
+                    <AiOutlineSearch onClick={() => setShowSearch((prev) => !prev)} />
+                    {showSearch && (
+                      <input type="text" value={searchParam} onChange={({ target }) => setSearchParam(target.value)} />
+                    )}
+                    {showSearch && (
+                      <AiOutlineClose
+                        className="close-search"
+                        onClick={() => {
+                          setShowSearch((prev) => !prev);
+                          setSearchParam("");
+                        }}
+                      />
+                    )}
+                    <span>search</span>
+                  </li>
+                  <li className="drop-down-user-name">
+                    {currentUser?.displayName && (
+                      <p>
+                        Hi,<span className="name">{currentUser?.displayName}</span>
+                      </p>
+                    )}
+                  </li>
+                  <li className="drop-down-shopping-cart">
+                    <Link to="/cart">
+                      <AiOutlineShopping className="shopping-cart" />
+                      <span>{cartTotal}</span>
+                    </Link>
+                  </li>
+                  <li className="drop-down-sign-out">
+                    {currentUser?.displayName && (
+                      <Link to="" onClick={() => dispatch(signoutUser())}>
+                        <AiOutlineLogout />
+                        <span>Logout</span>
+                      </Link>
+                    )}
+                    {Object.keys(currentUser).length === 0 && (
+                      <Link to="/login">
+                        <AiOutlineLogin />
+                        <span>Login</span>
+                      </Link>
+                    )}
+                  </li>
+                </ul>
+              </div>
+            )}
           </ul>
 
           <ul className="sign-logo">
