@@ -29,7 +29,7 @@ function Categorypage() {
     <div className="category-page main-page-container">
       <div className="main-section">
         <h2>{type}</h2>
-        <div className="product-section">
+        <div className="product-container-section">
           {isLoading && <Loading />}
           {!isLoading && products.length > 0 && products.map((el) => <ProductCard key={el._id} product={el} />)}
         </div>

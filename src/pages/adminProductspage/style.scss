@@ -1,42 +1,7 @@
 .show-products-page {
   width: 80%;
   margin-top: 1em;
-
-  .products-container {
-    margin: 1.5em 0;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    row-gap: 2rem;
-    column-gap: 1rem;
-  }
-
-  .load-more-btn {
-    width: 50%;
-    margin: 0 auto;
-
-    button {
-      margin: 0 auto;
-      width: 200px;
-      height: 25px;
-      display: flex;
-      align-items: center;
-      justify-content: space-evenly;
-      font-size: 1em;
-      cursor: pointer;
-      overflow: hidden;
-
-      span {
-        text-transform: uppercase;
-      }
-
-      svg {
-        transform: translateX(50px);
-        transition: transform 0.5s;
-      }
-
-      &:hover svg {
-        transform: translateX(0);
-      }
-    }
+  @media (max-width: 767px) {
+    width: 100%;
   }
 }

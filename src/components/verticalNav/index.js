@@ -9,14 +9,16 @@ function VerticalNav() {
 
   return (
     <div className="vertical-bar">
-      <div className="profile-container">
-        <p>Welcome {currentUser.displayName},</p>
-      </div>
-      <div className="info">
-        <p>
-          <span>Email:</span> {currentUser.email}
-        </p>
-        <p>{/* <span>Created at:</span> {currentUser.createdDate} */}</p>
+      <div className="admin-info">
+        <div className="profile-container">
+          <p>Welcome {currentUser.displayName},</p>
+        </div>
+        <div className="info">
+          <p>
+            <span>Email:</span> {currentUser.email}
+          </p>
+          <p>{/* <span>Created at:</span> {currentUser.createdDate} */}</p>
+        </div>
       </div>
       <div className="links">
         <button className="global-btn">

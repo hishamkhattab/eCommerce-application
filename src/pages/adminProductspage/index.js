@@ -45,7 +45,7 @@ function AdminProductspage() {
         <h2>Show Products</h2>
       </div>
 
-      <div className="products-container">
+      <div className="product-container-section">
         {!isLoading &&
           products.map((el) => (
             <ProductCard product={el} key={el._id} showDelete handleDelete={(id) => handleDelete(id)} />

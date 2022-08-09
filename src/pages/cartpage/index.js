@@ -1,14 +1,20 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { ProductCart } from "../../components";
 
 import { reduceCartItem, increaseCartItem, removeCartItem } from "../../store/cartSlice";
 import "./style.scss";
+import { getPaymentURL } from "../../store/orderSlice";
 
+const mappedState = (state) => ({
+  cart: state.carts.cart,
+  paymentURL: state.orders.url,
+});
 function Cartpage() {
-  const { cart } = useSelector((state) => state.carts);
+  const { cart, paymentURL } = useSelector(mappedState);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleReduceQty = (product) => {
     dispatch(reduceCartItem(product));
@@ -22,6 +28,15 @@ function Cartpage() {
     dispatch(removeCartItem(product));
   };
 
+  const handlePurchase = () => {
+    dispatch(getPaymentURL(cart));
+  };
+
+  useEffect(() => {
+    if (paymentURL) {
+      window.location.replace(paymentURL);
+    }
+  }, [paymentURL]);
   return (
     <div className="main-page-container cart-page">
       <div className="main-section">
@@ -51,8 +66,8 @@ function Cartpage() {
           <button className="global-btn" onClick={() => {}}>
             <Link to="/">continue Shopping</Link>
           </button>
-          <button className="global-btn" onClick={() => {}}>
-            <Link to="/purchase">purchase</Link>
+          <button className="global-btn" onClick={handlePurchase}>
+            <span>purchase</span>
           </button>
         </div>
       )}

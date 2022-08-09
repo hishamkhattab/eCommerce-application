@@ -15,6 +15,7 @@ import ProductCart from "./productCart";
 import PurchaseForm from "./purchaseForm";
 import ProductCategory from "./productCategory";
 import CategoryCard from "./categoryCard";
+import SuccessPayment from "./successPayment";
 
 export {
   Header,
@@ -34,4 +35,5 @@ export {
   PurchaseForm,
   ProductCategory,
   CategoryCard,
+  SuccessPayment,
 };

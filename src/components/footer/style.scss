@@ -9,6 +9,9 @@
     .logo-container {
       width: 250px;
       height: 250px;
+      @media (max-width: 767px) {
+        margin: 0 auto;
+      }
 
       img {
         width: 100%;
@@ -22,6 +25,9 @@
       grid-template-columns: repeat(4, 1fr);
       padding: 1em 2em;
 
+      @media (max-width: 767px) {
+        display: none;
+      }
       .link {
         h5 {
           margin-bottom: 20px;

@@ -1,6 +1,9 @@
 .add-product-page {
   width: 80%;
   margin-top: 1em;
+  @media (max-width: 767px) {
+    width: 100%;
+  }
   .title {
     text-align: center;
     margin: {
