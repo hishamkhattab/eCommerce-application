@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { IoMdArrowDropup, IoMdArrowDropdown } from "react-icons/io";
 
 import "./style.scss";
@@ -15,9 +14,11 @@ function ProductContent({
   setQty,
   setThumbImg,
   handleAddToCart,
+  errorMsg,
 }) {
   return (
     <div className="product-page">
+      {errorMsg && <p className="error-message">{errorMsg}</p>}
       <div className="image-container">
         <div className="img">
           <img src={thumbImg} alt="product" />
@@ -98,6 +99,7 @@ function ProductContent({
             <span className="out-of-stock">out of stock</span>
           </div>
         )}
+        {errorMsg && <p className="error-message">{errorMsg}</p>}
         <div className="product-control">
           <button className="global-btn" onClick={() => handleAddToCart(product)}>
             <span>Add To Cart</span>

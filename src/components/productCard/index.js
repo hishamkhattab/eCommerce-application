@@ -13,13 +13,15 @@ function ProductCard({ product, showDelete, handleDelete }) {
   const [sizeState, setSizeState] = useState("");
   const [colorState, setColorState] = useState("");
   const [qty, setQty] = useState(1);
+  const [error, setError] = useState("");
 
   const { productName, price, _id, productThumbnail, description, productCategory, size, colors } = product;
 
   const dispatch = useDispatch();
 
   const handleAddToCart = (item) => {
-    if (colorState || qty > 0) {
+    if (colorState && qty > 0 && sizeState) {
+      setError("");
       const cartItem = {
         _id: item._id,
         productName: item.productName,
@@ -33,6 +35,8 @@ function ProductCard({ product, showDelete, handleDelete }) {
       };
       dispatch(addToCart(cartItem));
       setViewDetails(false);
+    } else {
+      setError("Must specify color and size");
     }
   };
 
@@ -64,7 +68,7 @@ function ProductCard({ product, showDelete, handleDelete }) {
       {viewDetails && (
         <Modal closeModal={setViewDetails}>
           <div className="modal-product-container">
-            <img src={productThumbnail} alt="" />
+            <img src={productThumbnail} alt="product" />
           </div>
           <div className="modal-product-info">
             <h4 className="title">{productName}</h4>
@@ -126,6 +130,7 @@ function ProductCard({ product, showDelete, handleDelete }) {
                 <span className="out-of-stock">out of stock</span>
               </div>
             )}
+            {error && <p className="error-message">{error}</p>}
             <button className="global-btn" onClick={() => handleAddToCart(product)}>
               <span>Add To Cart</span>
             </button>

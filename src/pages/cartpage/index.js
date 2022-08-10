@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { ProductCart } from "../../components";
 
@@ -8,13 +8,15 @@ import "./style.scss";
 import { getPaymentURL } from "../../store/orderSlice";
 
 const mappedState = (state) => ({
+  userID: state.users.currentUser.userID,
   cart: state.carts.cart,
   paymentURL: state.orders.url,
 });
 function Cartpage() {
-  const { cart, paymentURL } = useSelector(mappedState);
+  const { cart, paymentURL, userID } = useSelector(mappedState);
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
+  const [cartItems, setCartItems] = useState([]);
 
   const handleReduceQty = (product) => {
     dispatch(reduceCartItem(product));
@@ -29,22 +31,33 @@ function Cartpage() {
   };
 
   const handlePurchase = () => {
-    dispatch(getPaymentURL(cart));
+    dispatch(getPaymentURL({ cart, userID }));
   };
+
+  useEffect(() => {
+    const storage = JSON.parse(localStorage.getItems("cart"));
+    if (storage) {
+      setCartItems(storage);
+    } else {
+      setCartItems(cart);
+    }
+  }, []);
 
   useEffect(() => {
     if (paymentURL) {
       window.location.replace(paymentURL);
     }
   }, [paymentURL]);
+
   return (
     <div className="main-page-container cart-page">
       <div className="main-section">
         <h2>Cart</h2>
       </div>
 
+      {cartItems.length === 0 && <p className="msg">There is no products in your cart</p>}
       <div className="cart-content">
-        {cart.map((product) => (
+        {cartItems.map((product) => (
           <ProductCart
             key={product._id}
             product={product}

@@ -7,7 +7,6 @@ const existingContent = (prevItems, nextItem) => prevItems.find((item) => item._
 
 // add item to the cart
 const handleAddToCart = (prevItems, nextItems) => {
-  const initialQty = 1;
   const isItemExists = existingContent(prevItems, nextItems);
 
   if (isItemExists) {
@@ -20,7 +19,6 @@ const handleAddToCart = (prevItems, nextItems) => {
     ...prevItems,
     {
       ...nextItems,
-      // qty: initialQty,
     },
   ];
 };

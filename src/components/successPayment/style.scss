@@ -1,0 +1,21 @@
+.success-container {
+  width: 80%;
+  height: 500px;
+  border-radius: 1em;
+  margin: 0 auto;
+  padding: 2em 1em;
+  background-color: #90ee90;
+  display: grid;
+  place-items: center;
+
+  h2 {
+    color: #fff;
+    font: {
+      size: 2.5em;
+      weight: 700;
+    }
+    word-wrap: break-word;
+    text-align: center;
+    text-transform: uppercase;
+  }
+}

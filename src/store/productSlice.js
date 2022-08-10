@@ -74,6 +74,28 @@ export const deleteProduct = createAsyncThunk("products/deleteProduct", async ({
   }
 });
 
+export const updateProduct = createAsyncThunk("products/updateProduct", async (cartItem, APIThunk) => {
+  const { rejectWithValue } = APIThunk;
+
+  try {
+    const response = await fetch(`/api/ecommerce/product`, {
+      method: "PATCH",
+      body: JSON.stringify(cartItem),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const json = await response.json();
+
+    if (response.ok) {
+      return json;
+    }
+  } catch (error) {
+    return rejectWithValue(error.message);
+  }
+});
+
 export const fetchSingleProduct = createAsyncThunk("products/fetchSingleProduct", async ({ productId }, APIThunk) => {
   const { rejectWithValue } = APIThunk;
 
@@ -171,6 +193,22 @@ export const productSlice = createSlice({
       state.error = null;
     });
     builder.addCase(fetchSingleProduct.rejected, (state, action) => {
+      state.isLoading = false;
+      state.singleProduct = {};
+      state.error = action.payload;
+      state.msg = null;
+    });
+
+    builder.addCase(updateProduct.pending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+    });
+    builder.addCase(updateProduct.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.msg = action.payload;
+      state.error = null;
+    });
+    builder.addCase(updateProduct.rejected, (state, action) => {
       state.isLoading = false;
       state.singleProduct = {};
       state.error = action.payload;

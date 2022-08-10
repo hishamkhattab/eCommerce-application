@@ -4,8 +4,8 @@ import "./style.scss";
 
 function SuccessPayment() {
   return (
-    <div>
-      <h1>Success</h1>
+    <div className="success-container">
+      <h2>purchase successfully</h2>
     </div>
   );
 }

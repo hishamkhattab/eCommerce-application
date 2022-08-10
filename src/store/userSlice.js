@@ -21,7 +21,8 @@ export const signoutUser = createAsyncThunk("user/signoutUser", async (_, APIThu
   try {
     // remove user from localstorage
     localStorage.removeItem("user");
-    // empty user object
+    // remove user's cart from localstorage
+    localStorage.removeItem("cart");
   } catch (error) {
     return rejectWithValue(error.message);
   }

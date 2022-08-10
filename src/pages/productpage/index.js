@@ -17,6 +17,7 @@ function Productpage() {
   const [sizeState, setSizeState] = useState("unknow");
   const [colorState, setColorState] = useState("unknow");
   const [qty, setQty] = useState(1);
+  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
     dispatch(fetchSingleProduct({ productId }));
@@ -27,7 +28,8 @@ function Productpage() {
   }, [singleProduct]);
 
   const handleAddToCart = (item) => {
-    if (colorState || qty > 0) {
+    if (colorState && qty > 0 && sizeState) {
+      setErrorMsg("");
       const cartItem = {
         _id: item._id,
         productName: item.productName,
@@ -40,6 +42,8 @@ function Productpage() {
         qty,
       };
       dispatch(addToCart(cartItem));
+    } else {
+      setErrorMsg("Must specify color and size");
     }
   };
 
@@ -63,6 +67,7 @@ function Productpage() {
           setQty={setQty}
           setThumbImg={setThumbImg}
           handleAddToCart={(p) => handleAddToCart(p)}
+          errorMsg={errorMsg}
         />
       )}
     </div>
