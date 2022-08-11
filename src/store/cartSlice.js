@@ -63,7 +63,7 @@ const handleIncreaseCartItem = (prevItems, nextItem) => {
   //   return prevItems.filter((item) => item.documentID !== existingCartItem.documentID);
 };
 const initialState = {
-  cart: [],
+  cart: JSON.parse(localStorage.getItem("cart")) || [],
 };
 
 const cartSlice = createSlice({

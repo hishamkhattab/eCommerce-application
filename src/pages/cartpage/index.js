@@ -16,7 +16,7 @@ function Cartpage() {
   const { cart, paymentURL, userID } = useSelector(mappedState);
   const dispatch = useDispatch();
 
-  const [cartItems, setCartItems] = useState([]);
+  // const [cart, setcart] = useState([]);
 
   const handleReduceQty = (product) => {
     dispatch(reduceCartItem(product));
@@ -34,14 +34,15 @@ function Cartpage() {
     dispatch(getPaymentURL({ cart, userID }));
   };
 
-  useEffect(() => {
-    const storage = JSON.parse(localStorage.getItems("cart"));
-    if (storage) {
-      setCartItems(storage);
-    } else {
-      setCartItems(cart);
-    }
-  }, []);
+  console.log(cart);
+  // useEffect(() => {
+  //   const storage = JSON.parse(localStorage.getItem("cart"));
+  //   if (storage) {
+  //     setcart(storage);
+  //   } else {
+  //     setcart(cart);
+  //   }
+  // }, []);
 
   useEffect(() => {
     if (paymentURL) {
@@ -55,9 +56,9 @@ function Cartpage() {
         <h2>Cart</h2>
       </div>
 
-      {cartItems.length === 0 && <p className="msg">There is no products in your cart</p>}
+      {cart.length === 0 && <p className="msg">There is no products in your cart</p>}
       <div className="cart-content">
-        {cartItems.map((product) => (
+        {cart.map((product) => (
           <ProductCart
             key={product._id}
             product={product}

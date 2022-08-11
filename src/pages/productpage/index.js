@@ -20,7 +20,7 @@ function Productpage() {
   const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
-    dispatch(fetchSingleProduct({ productId }));
+    dispatch(fetchSingleProduct(productId));
   }, []);
 
   useEffect(() => {

@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { updateProduct } from "./productSlice";
 
 export const getOrderHistory = createAsyncThunk("orders/getOrderHistory", async (uid, APIThunk) => {
   const { rejectWithValue } = APIThunk;
@@ -25,7 +24,7 @@ export const getOrderDetails = createAsyncThunk("orders/getOrderDetails", async 
 });
 
 export const getPaymentURL = createAsyncThunk("orders/getOrderDetails", async ({ cart, userID }, APIThunk) => {
-  const { rejectWithValue, dispatch } = APIThunk;
+  const { rejectWithValue } = APIThunk;
   const obj = {
     cart,
     userID,
@@ -44,7 +43,6 @@ export const getPaymentURL = createAsyncThunk("orders/getOrderDetails", async ({
       .then((data) => data)
       .catch((err) => console.log(err));
     if (url) return url;
-    dispatch(updateProduct(cart));
   } catch (error) {
     return rejectWithValue(error.message);
   }

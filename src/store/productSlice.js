@@ -96,7 +96,7 @@ export const updateProduct = createAsyncThunk("products/updateProduct", async (c
   }
 });
 
-export const fetchSingleProduct = createAsyncThunk("products/fetchSingleProduct", async ({ productId }, APIThunk) => {
+export const fetchSingleProduct = createAsyncThunk("products/fetchSingleProduct", async (productId, APIThunk) => {
   const { rejectWithValue } = APIThunk;
 
   const url = `/api/ecommerce/product/${productId}`;
