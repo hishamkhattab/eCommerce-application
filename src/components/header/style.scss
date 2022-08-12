@@ -231,9 +231,11 @@
 
       .user-name {
         width: 100%;
-        color: #fcf8e8;
         font-weight: 400;
         margin-bottom: 1rem;
+        a {
+          color: #fcf8e8;
+        }
         .name {
           text-transform: uppercase;
           font-weight: 700;

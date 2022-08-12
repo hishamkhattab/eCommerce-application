@@ -1,0 +1,26 @@
+.user-info {
+  .detail {
+    span {
+      font: {
+        size: 1.6em;
+        weight: 200;
+      }
+    }
+  }
+}
+
+.user-update {
+  margin: 3em 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+
+  .global-btn {
+    &.important {
+      background-color: crimson;
+      &:hover a {
+        color: #fff;
+      }
+    }
+  }
+}

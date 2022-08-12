@@ -1,0 +1,30 @@
+.detail {
+  color: #333;
+  span {
+    margin-right: 1rem;
+    font: {
+      size: 1.3em;
+      weight: 200;
+    }
+  }
+  &.main-detail {
+    margin: 1rem 0;
+    text-transform: uppercase;
+    span {
+      text-transform: capitalize;
+    }
+  }
+  &.important {
+    color: crimson;
+    span {
+      color: #333;
+    }
+  }
+}
+
+.shipping-details {
+  margin: 2em 0;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2em 1em;
+}

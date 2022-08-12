@@ -15,6 +15,9 @@ import {
   AddProductpage,
   AdminProductspage,
   Purchasepage,
+  UserPage,
+  OrdersPage,
+  SingleOrderPage,
 } from "./pages";
 
 // components
@@ -48,12 +51,15 @@ function App() {
         <Route path="/category/:type" element={<Categorypage />} />
         <Route path="/cart" element={<Cartpage />} />
         <Route path="/purchase" element={<Purchasepage />} />
+        <Route path="/user" element={<UserPage />} />
+        <Route path="/orders" element={<OrdersPage />} />
+        <Route path="/order/:id" element={<SingleOrderPage />} />
         <Route
           path="/admin"
           element={
-            // <WithAdminAuth>
-            <Adminpage />
-            // </WithAdminAuth>
+            <WithAdminAuth>
+              <Adminpage />
+            </WithAdminAuth>
           }
         >
           <Route path="addProduct" element={<AddProductpage />} />

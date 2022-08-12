@@ -1,0 +1,40 @@
+.order-itmes {
+  color: #333;
+  padding: 1em 0;
+
+  .details-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 7em;
+    padding-left: 1em;
+    text-transform: uppercase;
+    font: {
+      size: 1em;
+      weight: 300;
+    }
+    transition: transform 0.3s ease-in-out;
+
+    &:hover {
+      transform: scale(1.1);
+    }
+
+    svg {
+      margin-right: 1em;
+    }
+  }
+  .delivery-status {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 0;
+
+    span {
+      display: block;
+      margin-right: 1rem;
+      font: {
+        size: 1.3em;
+        weight: 300;
+      }
+    }
+  }
+}

@@ -1,4 +1,5 @@
 import React from "react";
+import formatDistanceToNow from "date-fns/formatDistanceToNow";
 import { IoMdArrowDropup, IoMdArrowDropdown } from "react-icons/io";
 
 import "./style.scss";
@@ -40,8 +41,8 @@ function ProductContent({
       </div>
       <div className="product-details">
         <div className="product-date">
-          <span>Created at: </span>
-          <span>{product.createdAt}</span>
+          <span className="title">Added:</span>
+          <span>{formatDistanceToNow(new Date(product.createdAt), { addSuffix: true })}</span>
         </div>
         <h3 className="product-title">{product.productName}</h3>
         <p className="product-price">${product.price}</p>

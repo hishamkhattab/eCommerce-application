@@ -122,9 +122,9 @@ function Header() {
           <ul className="sign-logo">
             <li className="user-name">
               {currentUser?.displayName && (
-                <p>
+                <Link to="/user">
                   Hi,<span className="name">{currentUser?.displayName}</span>
-                </p>
+                </Link>
               )}
             </li>
             <div className="logos">

@@ -1,0 +1,36 @@
+.order-item {
+  display: flex;
+  align-items: center;
+  padding: 1em 0;
+  border-bottom: 1px solid #d3d3d3;
+
+  .product-image {
+    width: 150px;
+    height: 200px;
+
+    img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+  .product-name {
+    padding: 0 1em;
+    flex: 1;
+    h4 {
+      margin-bottom: 1em;
+      font: {
+        size: 1.3em;
+        weight: 200;
+      }
+    }
+    .details {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  .more-details {
+    text-transform: uppercase;
+    color: #333;
+  }
+}

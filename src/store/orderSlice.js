@@ -4,8 +4,9 @@ export const getOrderHistory = createAsyncThunk("orders/getOrderHistory", async 
   const { rejectWithValue } = APIThunk;
 
   try {
-    const data = [];
-    return data;
+    const response = await fetch(`/api/payment/orders/${uid}`);
+    const json = await response.json();
+    return json;
   } catch (error) {
     return rejectWithValue(error.message);
   }
@@ -15,15 +16,15 @@ export const getOrderDetails = createAsyncThunk("orders/getOrderDetails", async 
   const { rejectWithValue } = APIThunk;
 
   try {
-    const data = {};
-
-    return data;
+    const response = await fetch(`/api/payment/order/${orderID}`);
+    const json = await response.json();
+    return json;
   } catch (error) {
     return rejectWithValue(error.message);
   }
 });
 
-export const getPaymentURL = createAsyncThunk("orders/getOrderDetails", async ({ cart, userID }, APIThunk) => {
+export const getPaymentURL = createAsyncThunk("orders/getPaymentURL", async ({ cart, userID }, APIThunk) => {
   const { rejectWithValue } = APIThunk;
   const obj = {
     cart,
@@ -61,44 +62,33 @@ export const orderSlice = createSlice({
   name: "orders",
   initialState,
   extraReducers: (builder) => {
-    // builder.addCase(saveOrder.pending, (state) => {
-    //   state.isLoading = true;
-    // });
-    // builder.addCase(saveOrder.fulfilled, (state) => {
-    //   state.isLoading = false;
-    //   state.message = "Added Successfully";
-    // });
-    // builder.addCase(saveOrder.rejected, (state, action) => {
-    //   state.isLoading = false;
-    //   state.message = "";
-    //   state.error = action.payload;
-    // });
+    builder.addCase(getOrderHistory.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getOrderHistory.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.orderHistory = action.payload;
+      state.error = false;
+    });
+    builder.addCase(getOrderHistory.rejected, (state, action) => {
+      state.isLoading = false;
+      state.orderHistory = [];
+      state.error = action.payload;
+    });
 
-    // builder.addCase(getOrderHistory.pending, (state) => {
-    //   state.isLoading = true;
-    // });
-    // builder.addCase(getOrderHistory.fulfilled, (state, action) => {
-    //   state.isLoading = false;
-    //   state.orderHistory = action.payload;
-    // });
-    // builder.addCase(getOrderHistory.rejected, (state, action) => {
-    //   state.isLoading = false;
-    //   state.orderHistory = [];
-    //   state.error = action.payload;
-    // });
-
-    // builder.addCase(getOrderDetails.pending, (state) => {
-    //   state.isLoading = true;
-    // });
-    // builder.addCase(getOrderDetails.fulfilled, (state, action) => {
-    //   state.isLoading = false;
-    //   state.orderDetails = action.payload;
-    // });
-    // builder.addCase(getOrderDetails.rejected, (state, action) => {
-    //   state.isLoading = false;
-    //   state.orderDetails = {};
-    //   state.error = action.payload;
-    // });
+    builder.addCase(getOrderDetails.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getOrderDetails.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.orderDetails = action.payload;
+      state.error = false;
+    });
+    builder.addCase(getOrderDetails.rejected, (state, action) => {
+      state.isLoading = false;
+      state.orderDetails = {};
+      state.error = action.payload;
+    });
 
     builder.addCase(getPaymentURL.pending, (state) => {
       state.isLoading = true;
@@ -106,6 +96,7 @@ export const orderSlice = createSlice({
     builder.addCase(getPaymentURL.fulfilled, (state, action) => {
       state.isLoading = false;
       state.url = action.payload;
+      state.error = false;
     });
     builder.addCase(getPaymentURL.rejected, (state, action) => {
       state.isLoading = false;

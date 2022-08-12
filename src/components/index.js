@@ -16,6 +16,9 @@ import PurchaseForm from "./purchaseForm";
 import ProductCategory from "./productCategory";
 import CategoryCard from "./categoryCard";
 import SuccessPayment from "./successPayment";
+import OrderCard from "./orderCard";
+import OrderComponent from "./orderComponent";
+import ProductList from "./productList";
 
 export {
   Header,
@@ -36,4 +39,7 @@ export {
   ProductCategory,
   CategoryCard,
   SuccessPayment,
+  OrderCard,
+  OrderComponent,
+  ProductList,
 };
