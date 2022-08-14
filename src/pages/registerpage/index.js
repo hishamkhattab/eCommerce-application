@@ -6,7 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { Signup } from "../../components";
 
 // layout
-import { Button, FormLayout } from "../../layout";
+import { FormLayout } from "../../layout";
 
 // reducer
 import { signupUser } from "../../store/userSlice";
@@ -77,7 +77,9 @@ function Registerpage() {
           <Link to="/login">Already a user?</Link>
         </div>
         <div className="btn-container">
-          <Button handleClick={handleSubmit}>sign-up</Button>
+          <button className="global-btn" onClick={handleSubmit}>
+            <span>sign-up</span>
+          </button>
         </div>
       </FormLayout>
     </div>

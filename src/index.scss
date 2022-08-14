@@ -53,34 +53,12 @@ ul {
 
 /*global classes*/
 
-//form -layout
-.form-layout {
-  padding: 1rem;
-
-  input {
-    width: 100%;
-    margin: 1rem 0;
-    padding: 1rem 2rem;
-    font-size: 0.8em;
-    outline: none;
-    border-color: transparent;
-    border-radius: 0.5em;
-  }
-}
-
 .error-message {
   color: crimson;
   font-size: 0.6em;
   font-weight: 600;
   margin-left: 1rem;
   text-transform: capitalize;
-}
-
-//loading container
-.loading-container {
-  height: 100vh;
-  display: grid;
-  place-items: center;
 }
 
 //global button
@@ -183,6 +161,7 @@ ul {
     margin-bottom: 5em;
 
     .slide-show {
+      position: relative;
       display: flex;
       flex-wrap: nowrap;
       flex-direction: row;
@@ -303,6 +282,7 @@ ul {
 }
 
 .product-container-section {
+  position: relative;
   margin: 2em auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -342,4 +322,5 @@ ul {
 
 .page-container {
   padding: 1em 3em;
+  position: relative;
 }

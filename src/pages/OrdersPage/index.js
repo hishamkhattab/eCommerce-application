@@ -27,8 +27,8 @@ function OrdersPage() {
         <span>User Details</span>
       </button>
       {error && <p className="error-message">{error}</p>}
-      {isLoading && <Loading />}
       <div className="page-container">
+        {isLoading && <Loading />}
         {!isLoading && !error && orderHistory.map((order) => <OrderCard order={order} key={order._id} />)}
       </div>
     </div>

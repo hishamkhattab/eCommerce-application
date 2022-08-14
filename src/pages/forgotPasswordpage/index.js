@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 // component
 import { ResetPassword } from "../../components";
 
 // layout
-import { FormLayout, Button } from "../../layout";
+import { FormLayout } from "../../layout";
 
 // reducer
 // import { resetPassword } from "../../store/userSlice";
@@ -36,8 +36,13 @@ function ForgotPassword() {
     <div>
       <FormLayout title="Reset Password">
         <ResetPassword email={email} setEmail={setEmail} error={error} />
+        <div className="links-container">
+          <Link to="/login">login</Link>
+        </div>
         <div className="btn-container">
-          <Button handleClick={handleReset}>Reset Password</Button>
+          <button className="global-btn" onClick={handleReset}>
+            <span>Reset Password</span>
+          </button>
         </div>
       </FormLayout>
     </div>

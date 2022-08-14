@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { Signin } from "../../components";
 
 // layout
-import { FormLayout, Button } from "../../layout";
+import { FormLayout } from "../../layout";
 
 // reducer
 import { signinUser } from "../../store/userSlice";
@@ -26,7 +26,7 @@ function Loginpage() {
   const navigate = useNavigate();
 
   const handleGoogleSignin = () => {
-    // dispatch(signinWithGoogle());
+    console.log("Google");
   };
 
   const clearForm = () => {
@@ -57,10 +57,12 @@ function Loginpage() {
           <Link to="/register">Don't have account</Link>
         </div>
         <div className="btn-container">
-          <Button handleClick={handleSignin}>sign in</Button>
-        </div>
-        <div className="btn-container">
-          <Button handleClick={handleGoogleSignin}>sign in with google</Button>
+          <button onClick={handleSignin} className="global-btn">
+            <span>sign in</span>
+          </button>
+          <button onClick={handleGoogleSignin} className="global-btn">
+            <span>sign in with google</span>
+          </button>
         </div>
       </FormLayout>
     </div>

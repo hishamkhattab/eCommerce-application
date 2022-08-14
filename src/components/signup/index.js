@@ -7,7 +7,7 @@ function Signup({ handleForm, signupData, isPassowrdMatch, error }) {
 
   return (
     <div>
-      <form onSubmit={(e) => e.preventDefault()} className="form-layout">
+      <form onSubmit={(e) => e.preventDefault()}>
         {!isPassowrdMatch && <p className="error-message">*Password and confirm password does not match</p>}
         {error && <p className="error-message">{error}</p>}
         <input

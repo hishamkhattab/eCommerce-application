@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { ProductCart } from "../../components";
@@ -16,8 +16,6 @@ function Cartpage() {
   const { cart, paymentURL, userID } = useSelector(mappedState);
   const dispatch = useDispatch();
 
-  // const [cart, setcart] = useState([]);
-
   const handleReduceQty = (product) => {
     dispatch(reduceCartItem(product));
   };
@@ -33,16 +31,6 @@ function Cartpage() {
   const handlePurchase = () => {
     dispatch(getPaymentURL({ cart, userID }));
   };
-
-  console.log(cart);
-  // useEffect(() => {
-  //   const storage = JSON.parse(localStorage.getItem("cart"));
-  //   if (storage) {
-  //     setcart(storage);
-  //   } else {
-  //     setcart(cart);
-  //   }
-  // }, []);
 
   useEffect(() => {
     if (paymentURL) {

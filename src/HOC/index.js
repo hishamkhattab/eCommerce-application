@@ -1,3 +1,4 @@
 import WithAdminAuth from "./withAdminAuth";
+import WithUserAuth from "./withUserAuth";
 
-export { WithAdminAuth };
+export { WithAdminAuth, WithUserAuth };

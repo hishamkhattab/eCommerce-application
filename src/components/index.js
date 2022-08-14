@@ -12,7 +12,6 @@ import LoadMoreButton from "./LoadMoreButton";
 import Loading from "./loading";
 import ProductContent from "./productContent";
 import ProductCart from "./productCart";
-import PurchaseForm from "./purchaseForm";
 import ProductCategory from "./productCategory";
 import CategoryCard from "./categoryCard";
 import SuccessPayment from "./successPayment";
@@ -35,7 +34,6 @@ export {
   Loading,
   ProductContent,
   ProductCart,
-  PurchaseForm,
   ProductCategory,
   CategoryCard,
   SuccessPayment,

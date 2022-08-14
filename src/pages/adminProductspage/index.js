@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { AiOutlineDoubleRight } from "react-icons/ai";
 // components
-import { Modal, ProductCard } from "../../components";
+import { Loading, Modal, ProductCard } from "../../components";
 
 // reducer
 import { fetchProducts, deleteProduct } from "../../store/productSlice";
@@ -46,6 +46,7 @@ function AdminProductspage() {
       </div>
 
       <div className="product-container-section">
+        {isLoading && <Loading />}
         {!isLoading &&
           products.map((el) => (
             <ProductCard product={el} key={el._id} showDelete handleDelete={(id) => handleDelete(id)} />

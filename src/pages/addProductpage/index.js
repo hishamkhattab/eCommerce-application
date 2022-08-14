@@ -35,18 +35,6 @@ function AddProductpage() {
   const [size, setSize] = useState("");
   const [description, setDescription] = useState("");
 
-  const clearForm = () => {
-    setProductName("");
-    setPrice(0);
-    setStock(0);
-    setProductThumbnail("");
-    setProductImages("");
-    setproductCategory("");
-    setColors("");
-    setSize("");
-    setDescription("");
-  };
-
   const handleAddProduct = () => {
     const product = {
       productName,
@@ -62,7 +50,6 @@ function AddProductpage() {
     };
 
     dispatch(addProduct({ product }));
-    // clearForm();
   };
 
   return (

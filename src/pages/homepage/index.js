@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { IoSunnyOutline, IoCloudyOutline } from "react-icons/io5";
 import { useSelector, useDispatch } from "react-redux";
 import { CategoryCard, HomeDirectory, Loading, ProductCard, ProductCategory } from "../../components";
 
@@ -54,21 +53,6 @@ function Homepage() {
           </div>
         </div>
       </section>
-
-      {/* <div className="category-content">
-        <div className="main-category">
-          <Link to="/category/summer">
-            <h3>Summer Vibes</h3>
-          </Link>
-          <IoSunnyOutline />
-        </div>
-        <div className="main-category">
-          <Link to="/category/winter">
-            <h3>Winter Vibes</h3>
-          </Link>
-          <IoCloudyOutline />
-        </div>
-      </div> */}
 
       <div className="product-category-content">
         <ProductCategory />

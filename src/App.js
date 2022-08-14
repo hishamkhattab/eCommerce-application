@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Routes, Route, Navigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
 // pages
 import {
@@ -27,12 +27,13 @@ import { Header, Footer } from "./components";
 import { checkIfUserSignin } from "./store/userSlice";
 
 // high-order-component
-import { WithAdminAuth } from "./HOC";
+import { WithAdminAuth, WithUserAuth } from "./HOC";
 
 // style
 import "./index.scss";
 
 function App() {
+  const { currentUser } = useSelector((state) => state.users);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -44,16 +45,57 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Homepage />} />
-        <Route path="/register" element={<Registerpage />} />
-        <Route path="/login" element={<Loginpage />} />
-        <Route path="/reset" element={<ForgotPassword />} />
+        <Route
+          path="/register"
+          element={Object.keys(currentUser).length === 0 ? <Registerpage /> : <Navigate to="/" />}
+        />
+        <Route path="/login" element={Object.keys(currentUser).length === 0 ? <Loginpage /> : <Navigate to="/" />} />
+        <Route
+          path="/reset"
+          element={Object.keys(currentUser).length === 0 ? <ForgotPassword /> : <Navigate to="/" />}
+        />
         <Route path="/product/:productId" element={<Productpage />} />
         <Route path="/category/:type" element={<Categorypage />} />
-        <Route path="/cart" element={<Cartpage />} />
-        <Route path="/purchase" element={<Purchasepage />} />
-        <Route path="/user" element={<UserPage />} />
-        <Route path="/orders" element={<OrdersPage />} />
-        <Route path="/order/:id" element={<SingleOrderPage />} />
+        <Route
+          path="/cart"
+          element={
+            <WithUserAuth>
+              <Cartpage />
+            </WithUserAuth>
+          }
+        />
+        <Route
+          path="/purchase"
+          element={
+            <WithUserAuth>
+              <Purchasepage />
+            </WithUserAuth>
+          }
+        />
+        <Route
+          path="/user"
+          element={
+            <WithUserAuth>
+              <UserPage />
+            </WithUserAuth>
+          }
+        />
+        <Route
+          path="/orders"
+          element={
+            <WithUserAuth>
+              <OrdersPage />
+            </WithUserAuth>
+          }
+        />
+        <Route
+          path="/order/:id"
+          element={
+            <WithUserAuth>
+              <SingleOrderPage />
+            </WithUserAuth>
+          }
+        />
         <Route
           path="/admin"
           element={

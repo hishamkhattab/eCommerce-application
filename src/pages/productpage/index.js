@@ -49,11 +49,7 @@ function Productpage() {
 
   return (
     <div className="main-page-container">
-      {isLoading && (
-        <div className="loading-container">
-          <Loading />
-        </div>
-      )}
+      {isLoading && <Loading />}
       {error && <p>{error}</p>}
       {!isLoading && !error && (
         <ProductContent

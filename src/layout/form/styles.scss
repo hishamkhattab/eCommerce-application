@@ -3,8 +3,8 @@
   margin: 4em auto;
   width: 100%;
   max-width: 40rem;
-  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-  color: #fff;
+  border: 1px solid #333;
+  color: #333;
   border-radius: 0.5em;
 
   .form-wrapper {
@@ -15,29 +15,46 @@
       width: 100%;
       text-align: center;
       text-transform: uppercase;
-      font-size: 1.2em;
-      font-weight: 600;
+      font-size: 2em;
+      font-weight: 300;
+    }
+
+    form {
+      padding: 1rem;
+
+      input {
+        width: 100%;
+        margin: 1rem 0;
+        padding: 1rem 2rem;
+        font-size: 0.8em;
+        outline: none;
+        border: 0;
+        border-bottom: 0.5px solid #333;
+      }
     }
   }
 
   .btn-container {
     padding: 1rem;
     margin: 0.7em auto;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .links-container {
     margin-left: 3rem;
 
     a {
+      text-transform: capitalize;
       display: block;
-      color: #2193b0;
+      color: #333;
       font-size: 0.7em;
       padding: 0.5em 0;
     }
 
     a:hover {
-      color: #fff;
+      color: #2193b0;
       text-decoration: underline;
     }
   }
