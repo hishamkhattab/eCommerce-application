@@ -30,7 +30,36 @@
   }
 
   .more-details {
-    text-transform: uppercase;
-    color: #333;
+    display: flex;
+    flex-direction: column;
+
+    a {
+      display: block;
+      margin: 1rem 0;
+      text-transform: uppercase;
+      color: #333;
+    }
+
+    .review {
+      display: block;
+      margin: 1rem 0;
+      border: 1px solid transparent;
+      border-radius: 5px;
+      outline: none;
+      padding: 10px 15px;
+      text-transform: uppercase;
+      background-color: crimson;
+      color: #fff;
+      cursor: pointer;
+      transform: scale(1);
+      transition: all 0.4s ease-in;
+
+      &:hover {
+        transform: scale(1.1);
+        background-color: #fff;
+        color: crimson;
+        border-color: crimson;
+      }
+    }
   }
 }

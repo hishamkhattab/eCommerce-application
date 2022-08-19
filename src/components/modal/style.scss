@@ -17,9 +17,6 @@
     height: 90%;
     border: 1px solid #212121;
     background-color: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     position: relative;
 
     .close {
@@ -35,6 +32,9 @@
     }
 
     .modal-product-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
       height: 80%;
       max-width: 50%;
       img {
@@ -136,6 +136,38 @@
         font-size: 15px;
         font-weight: 500;
         line-height: 1.4;
+      }
+    }
+
+    .review-container {
+      .review-star {
+        width: max-content;
+        margin: 0 auto;
+      }
+
+      .add-comment {
+        label {
+          display: block;
+          text-transform: capitalize;
+          font-weight: 300;
+          font-size: 1em;
+          margin: {
+            top: 1rem;
+            left: 1rem;
+          }
+        }
+        textarea,
+        input {
+          display: block;
+          margin-bottom: 1em;
+          width: 100%;
+          padding: 5px 10px;
+          border: 0;
+          outline: none;
+          border-bottom: 1px solid #d3d3d3;
+          font-size: 1em;
+          font-weight: 300;
+        }
       }
     }
   }

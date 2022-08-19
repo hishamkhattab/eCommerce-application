@@ -113,6 +113,28 @@ export const fetchSingleProduct = createAsyncThunk("products/fetchSingleProduct"
   }
 });
 
+export const reviewProduct = createAsyncThunk("products/reviewProduct", async ({ review, productID }, APIThunk) => {
+  const { rejectWithValue } = APIThunk;
+
+  try {
+    const response = await fetch(`/api/ecommerce/product/${productID}`, {
+      method: "PATCH",
+      body: JSON.stringify(review),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const json = await response.json();
+
+    if (response.ok) {
+      return json.msg;
+    }
+  } catch (error) {
+    return rejectWithValue(error.message);
+  }
+});
+
 const initialState = {
   isLoading: true,
   products: [],
@@ -209,6 +231,23 @@ export const productSlice = createSlice({
       state.error = null;
     });
     builder.addCase(updateProduct.rejected, (state, action) => {
+      state.isLoading = false;
+      state.singleProduct = {};
+      state.error = action.payload;
+      state.msg = null;
+    });
+
+    builder.addCase(reviewProduct.pending, (state) => {
+      state.isLoading = true;
+      state.error = null;
+      state.msg = null;
+    });
+    builder.addCase(reviewProduct.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.msg = action.payload;
+      state.error = null;
+    });
+    builder.addCase(reviewProduct.rejected, (state, action) => {
       state.isLoading = false;
       state.singleProduct = {};
       state.error = action.payload;
